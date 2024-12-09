@@ -1,0 +1,422 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  color: #000;
+  background-color: #208AAE;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+header {
+  background-color: #000000;
+  /* Light gray background */
+  padding: 10px 20px;
+  border-bottom: 2px solid #ccc;
+  /* Subtle border for header */
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  font-size: 24px;
+  color: #ffffff;
+  /* Dark gray */
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  font-weight: 100 !important;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  /* Dark gray text */
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #333;
+  /* Change to black on hover */
+}
+
+.login-signup {
+  background-color: #FFBC42;
+  /* White background for login/signup */
+  border: 2px solid #333;
+  /* Dark gray border */
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-signup:hover {
+  color: #000000;
+  /* White text on hover */
+}
+
+/* Logo styling */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.container {
+  background-color: #208AAE;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.slideshow-container {
+  max-width: 55em;
+  position: relative;
+  margin: auto;
+}
+
+.mySlides {
+  display: none;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  /* Remove the background */
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  user-select: none;
+  border: none;
+  /* Remove any border */
+}
+
+
+.next {
+  right: 0;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(56, 56, 56, 0.8);
+}
+
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.h2game {
+
+  margin-left: 2em;
+}
+
+
+.ImageContainer {
+  width: 100%;
+  height: auto;
+}
+
+.Image {
+  max-width: 1.1em !important;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #444;
+  text-align: center;
+}
+
+.card {
+
+  border: 2px solid #444;
+  border-radius: 5px;
+  text-align: left;
+  padding: 15px;
+  margin: 10px;
+  width: 250px;
+  height: max-content;
+}
+
+
+.pass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #111;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #444;
+  text-align: center;
+}
+
+.pass img {
+  width: 100px;
+}
+
+.pass p {
+  font-size: 1.5em;
+  margin-top: 0;
+}
+
+
+.grid-container-home {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5em;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 8px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 3.9em;
+
+}
+
+.grid-item {
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover effect for grid items */
+.grid-item:hover {
+  transform: scale(1.05);
+  border-color: #00eaff;
+}
+
+/* Image styling within the grid item */
+.grid-item .product-container {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+/* Item price text styling */
+.Item__price {
+  display: block;
+  font-size: 18px;
+  color: #ffffff;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Link styling */
+.Item__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1050px) {
+  .grid-container-home {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .slideshow-container {
+    max-width: 360px;
+    margin-top: 4em;
+  }
+
+  .card,
+  .grid-item {
+    padding: 10px;
+  }
+
+  .Item__price,
+  .Item__link {
+    font-size: 12px;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .Item__link div {
+    align-items: center;
+    justify-content: center;
+    /* Center content horizontally */
+    align-items: center;
+    /* Center content vertically */
+
+  }
+
+  .pass {
+    grid-column: span 1;
+    width: 100%;
+  }
+
+  .Image {
+    max-width: 0.8em !important;
+  }
+
+  .login-signup,
+  nav a {
+    padding: 5px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+.tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #000000;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+footer {
+  background-color: #000000;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 100;
+  position: relative;
+}
+
+.footer-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  gap: 15px;
+}
+
+.footer-container ul li {
+  display: inline;
+}
+
+.footer-container ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-container ul li a:hover {
+  text-decoration: underline;
+}

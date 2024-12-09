@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -59,20 +58,19 @@ ROOT_URLCONF = 'arconhub.urls'
 
 STATIC_URL = '/static/'
 
-# Define the directory where collected static files should be stored
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Add the React build static directory to the STATICFILES_DIRS
+# Settings for static files
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/build/static'),
+    'frontend/build/static',
 ]
+
+STATIC_ROOT = '/staticfiles'
 
 # Configure the path for serving the index.html file
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'frontend', 'build'),  # Make sure this line is correct
+            'frontend/build',  # The directory containing index.html
         ],
         'APP_DIRS': True,
         'OPTIONS': {
