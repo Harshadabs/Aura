@@ -11,7 +11,8 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),  # Optional: root URL
     path('login', TemplateView.as_view(template_name='index.html')),  # Optional: /login route
     path('signup', TemplateView.as_view(template_name='index.html')),  # Optional: /signup route
-    path('about', TemplateView.as_view(template_name='index.html')),  # Optional: /about route
+    path('about', TemplateView.as_view(template_name='index.html')),
+  # Optional: /about route
 ]
 
 # Serve static files in development (React build's static files)

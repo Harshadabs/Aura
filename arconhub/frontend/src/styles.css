@@ -85,13 +85,6 @@ nav ul li a:hover {
   /* White text on hover */
 }
 
-/* Logo styling */
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-}
-
 .container {
   background-color: #208AAE;
   align-items: center;
@@ -265,7 +258,7 @@ nav ul li a:hover {
 
 }
 
-.grid-item {
+.grid-item-home {
   border: 1px solid #333;
   border-radius: 8px;
   overflow: hidden;
@@ -276,13 +269,13 @@ nav ul li a:hover {
 }
 
 /* Hover effect for grid items */
-.grid-item:hover {
+.grid-item-home:hover {
   transform: scale(1.05);
   border-color: #00eaff;
 }
 
 /* Image styling within the grid item */
-.grid-item .product-container {
+.grid-item-home .product-container {
   width: 100%;
   height: auto;
   overflow: hidden;
@@ -295,21 +288,6 @@ nav ul li a:hover {
   object-fit: cover;
   border-radius: 4px;
   transition: transform 0.3s ease;
-}
-
-/* Item price text styling */
-.Item__price {
-  display: block;
-  font-size: 18px;
-  color: #ffffff;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-/* Link styling */
-.Item__link {
-  text-decoration: none;
-  color: inherit;
 }
 
 /* Responsive adjustments */
@@ -356,16 +334,6 @@ nav ul li a:hover {
   .Image {
     max-width: 0.8em !important;
   }
-
-  .login-signup,
-  nav a {
-    padding: 5px;
-  }
-
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
 }
 
 .tag {
@@ -400,7 +368,7 @@ footer {
 }
 
 .footer-container ul {
-  list-style-type: none;
+  list-style-type: none !important;
   padding: 0;
   margin: 10px 0;
   display: flex;
@@ -409,6 +377,7 @@ footer {
 
 .footer-container ul li {
   display: inline;
+  list-style-type: none !important;
 }
 
 .footer-container ul li a {
@@ -418,5 +387,5 @@ footer {
 }
 
 .footer-container ul li a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }

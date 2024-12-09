@@ -4,6 +4,9 @@ import Homepage from "./homepage";
 import Login from "./login";
 import About from "./about";
 import Signup from "./signup";
+import Genshin from "./genshin";
+import Moba from "./moba";
+import Honkai from "./honkai";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,18 @@ const router = createBrowserRouter([
   {
     path: "/Signup",
     element: <Signup />, 
+  },
+  {
+    path: "/Genshin",
+    element: <Genshin />, 
+  },
+  {
+    path: "/mobilelegends",
+    element: <Moba />, 
+  },
+  {
+    path: "/honkai",
+    element: <Honkai />, 
   },
 ]);
 

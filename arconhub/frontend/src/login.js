@@ -3,7 +3,7 @@ import "./login.css";
 
 const Login = () => {
     return (
-        <><div class="container">
+        <><div className="container">
         <header>
         <nav>
           <h1>ArconHUB</h1>
@@ -15,9 +15,9 @@ const Login = () => {
         </nav>
       </header>
 
-      <div class="login-form-container">
+      <div className="login-form-container">
         <h2>Login</h2>
-        <form action="/login" method="post" class="login-form">
+        <form action="/login" method="post" className="login-form">
           <input type="text" name="username" placeholder="Username" required />
           <input
             type="password"
@@ -25,9 +25,9 @@ const Login = () => {
             placeholder="Password"
             required
           />
-          <button type="submit" class="login-button">Log In</button>
+          <button type="submit" className="login-button">Log In</button>
         </form>
-        <div class="login-links">
+        <div className="login-links">
           <a href="#">Forgot Password?</a>
           <a href="/Signup">Sign Up</a>
         </div>

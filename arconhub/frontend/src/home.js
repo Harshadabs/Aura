@@ -94,7 +94,7 @@ const Home = () => {
 
         <h2 className="h2game">Games</h2>
         <div className="grid-container-home container" >
-          <div className="card grid-item">
+          <div className="card grid-item-home">
             <a href="/mobilelegends" className="Item__link">
               <div className="product-container">
                 <img
@@ -107,8 +107,8 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="card grid-item">
-            <a href="/GenshinImpact" className="Item__link">
+          <div className="card grid-item-home">
+            <a href="/Genshin" className="Item__link">
               <div className="product-container">
                 <img
                   src="static/images/Genshin_Impact.png"
@@ -120,7 +120,7 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="card grid-item">
+          <div className="card grid-item-home">
             <a href="/Honkai" className="Item__link">
               <div className="product-container">
                 <img
@@ -133,7 +133,7 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="card grid-item">
+          <div className="card grid-item-home">
             <a href="#" className="Item__link">
               <div className="product-container">
                 <img

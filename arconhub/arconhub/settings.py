@@ -65,7 +65,6 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = '/staticfiles'
 
-# Configure the path for serving the index.html file
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
