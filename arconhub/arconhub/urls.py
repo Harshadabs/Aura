@@ -1,7 +1,11 @@
-from django.urls import path, re_path
+from django.urls import path, re_path , include
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import render
+
+def login_signup(request):
+    return render(request,'index.html')
 
 urlpatterns = [
     # Serve React's index.html for all routes (catch-all)
@@ -12,8 +16,17 @@ urlpatterns = [
     path('login', TemplateView.as_view(template_name='index.html')),  # Optional: /login route
     path('signup', TemplateView.as_view(template_name='index.html')),  # Optional: /signup route
     path('about', TemplateView.as_view(template_name='index.html')),
-  # Optional: /about route
+    
+    path('mobilelegends', TemplateView.as_view(template_name='index.html')),
+    path('genshin', TemplateView.as_view(template_name='index.html')), 
+    path('honkai', TemplateView.as_view(template_name='index.html')),
+     path('', login_signup, name='login'),  # Root path
+    path('accounts/', include('accounts.urls')),
 ]
+
+
+
+
 
 # Serve static files in development (React build's static files)
 if settings.DEBUG:

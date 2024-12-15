@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpView, LoginView  # Ensure these views are defined in accounts/views.py
+from .views import SignUpView, LoginView
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
