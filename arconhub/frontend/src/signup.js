@@ -8,18 +8,14 @@ function SignupPage() {
 
     // Function to get CSRF token from cookies
     function getCSRFToken() {
-        let cookieValue = null;
-        const cookies = document.cookie.split(";");
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith("csrftoken=")) {
-                cookieValue = cookie.substring("csrftoken=".length, cookie.length);
-                break;
-            }
-        }
-        return cookieValue;
+        return fetch("/csrf/", {
+            method: "GET",
+            credentials: "include", // Important: Include cookies in request
+        })
+            .then((response) => response.json())
+            .then((data) => data.csrfToken);
     }
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -30,30 +26,28 @@ function SignupPage() {
             email,
         };
 
-        fetch("/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": getCSRFToken(), // Send CSRF token in headers
-            },
-            body: JSON.stringify(signupData),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Signup failed");
+        getCSRFToken().then((token) => {
+            fetch("/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": token, // CSRF token here
+                },
+                body: JSON.stringify(signupData),
+                credentials: "include", // Important for cookies
             })
-            .then((data) => {
-                setMessage("Signup successful! You can now log in.");
-                setUsername("");
-                setPassword("");
-                setEmail("");
-            })
-            .catch((error) => {
-                setMessage("Error: " + error.message);
-            });
-    };
+                .then((response) => {
+                    if (response.ok) return response.json();
+                    throw new Error("Signup failed");
+                })
+                .then(() => {
+                    setMessage("Signup successful! You can now log in.");
+                })
+                .catch((error) => {
+                    setMessage("Error: " + error.message);
+                });
+        });
+    }
 
     return (
       <div className="container">
