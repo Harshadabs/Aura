@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 import json
 
+# Use csrf_exempt to properly handle CSRF for APIs
 @method_decorator(csrf_exempt, name='dispatch')
 class SignUpView(View):
     def post(self, request, *args, **kwargs):
