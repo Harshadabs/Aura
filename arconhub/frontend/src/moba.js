@@ -1,18 +1,36 @@
 import React from "react";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./header";
+import Footer from "./footer";
 import './gamepage.css'
+import "./login.css";
+import "./styles.css";
 
-const shardsPackages = [
-    {"title": "60 shards", "price": "₹ 13"},
-    {"title": "11 shards", "price": "₹ 25"},
-    {"title": "14 shards", "price": "₹ 30"},
-    {"title": "22 shards", "price": "₹ 45"},
-    {"title": "42 shards", "price": "₹ 75"},
-    {"title": "56 shards", "price": "₹ 95"},
-]
+const diamondPackages = [
+    { title: "5 diamonds", price: "₹ 13" },
+    { title: "11 diamonds", price: "₹ 25" },
+    { title: "14 diamonds", price: "₹ 30" },
+    { title: "22 diamonds", price: "₹ 45" },
+    { title: "42 diamonds", price: "₹ 75" },
+    { title: "56 diamonds", price: "₹ 95" },
+    { title: "86 diamonds", price: "₹ 135" },
+    { title: "122 diamonds", price: "₹ 175" },
+    { title: "172 diamonds", price: "₹ 275" },
+    { title: "257 diamonds", price: "₹ 380" },
+    { title: "344 diamonds", price: "₹ 530" },
+    { title: "429 diamonds", price: "₹ 650" },
+    { title: "514 diamonds", price: "₹ 730" },
+    { title: "706 diamonds", price: "₹ 960" },
+    { title: "1050 diamonds", price: "₹ 1420" },
+    { title: "1135 diamonds", price: "₹ 1800" },
+    { title: "1412 diamonds", price: "₹ 1980" },
+    { title: "2195 diamonds", price: "₹ 3100" },
+    { title: "2901 diamonds", price: "₹ 3850" },
+    { title: "3600 diamonds", price: "₹ 4850" },
+    { title: "5532 diamonds", price: "₹ 6650" },
+    { title: "9288 diamonds", price: "₹ 10800" },
+];
 
-const Honkai = () => {
+const Moba = () => {
     return (
         <>
             <Header />
@@ -34,8 +52,8 @@ const Honkai = () => {
                         />
                         <div className="sidebar" style={{ marginRight: '10em' , alignItems: 'centre'}}>                            
                             <img
-                                src="static/images/hsr logo.jpg"
-                                alt="Honkai logo"
+                                src="static/images/mobile legends.png"
+                                alt="Mobile Legends"
                                 width="200px"
                                 className="game-image"
                             />
@@ -60,7 +78,7 @@ const Honkai = () => {
                 </p>
                 <h3>2. Select Service Amount</h3>
                 <div className="Items grid-container">
-                    {shardsPackages.map((packageItem, index) => (
+                    {diamondPackages.map((packageItem, index) => (
                         <button
                             key={index}
                             className="box grid-item"
@@ -80,18 +98,40 @@ const Honkai = () => {
                         </button>
                     ))}
                     <button className="box grid-item pass">
-            <a href="#" className="Item__link">
-              <div className="product-container" style={{display: 'block'}}>
-                <span className="Item__title">Express Supply pass</span>
-              </div>
-              <span className="Item__price">₹ 400</span>
-            </a>
-          </button>
-        </div>
-      </div>
+                        <a href="#" className="Item__link">
+                            <div className="product-container" style={{ display: 'block'}}>
+                                <span className="Item__title"> Weekly Diamond pass </span>
+                            </div>
+                            <span className="Item__price">₹ 140</span>
+
+                        </a>
+                    </button>
+
+                    <button className="box grid-item pass">
+                        <a href="#" className="Item__link">
+                            <div className="product-container" style={{ display: 'block'}}>
+                                <span className="Item__title"> Starlight pass</span>
+                            </div>
+                            <span className="Item__price">₹ 270</span>
+
+                        </a>
+                    </button>
+
+                    <button className="box grid-item pass ">
+                        <a href="#" className="Item__link">
+                            <div className="product-container" style={{ display: 'block'}}>
+                                <span className="Item__title"> Twilight pass</span>
+                            </div>
+                            <span className="Item__price color_change">₹ 750</span>
+
+                        </a>
+                    </button>
+
+                </div>
+            </div>
          <Footer />
     </>
   );
 };
 
-export default Honkai;
+export default Moba;

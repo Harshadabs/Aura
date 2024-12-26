@@ -1,8 +1,10 @@
 import React from "react";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Home from "./components/home";
+import Header from "./header";
+import Footer from "./footer";
+import Home from "./home";
 import "./styles.css"
+import "./login.css";
+import "./gamepage.css";
 
 const Homepage = () => (
   <main>

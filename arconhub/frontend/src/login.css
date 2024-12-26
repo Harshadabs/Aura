@@ -1,0 +1,107 @@
+.login-form-container {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  background-color: #008080;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 100px; /* Add spacing from the navbar */
+}
+
+/* Heading */
+.login-form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #f0ad4e;
+}
+
+/* Input fields */
+.login-form-container input[type="email"],
+.login-form-container input[type="text"],
+.login-form-container input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 20px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-form-container input[type="email"]:focus,
+.login-form-container input[type="password"]:focus {
+  border-color: #f0ad4e;
+  outline: none;
+}
+
+/* Submit button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f0ad4e;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none !important;
+}
+
+.login-button:hover {
+  background-color: #ffa726;
+}
+
+/* Link for signup and forgot password */
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.login-links a {
+  color: #f0ad4e;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  align-items: center;
+}
+
+.login-links a:hover {
+  color: #ffa726;
+}
+
+/* Accessibility improvements */
+.login-button:focus,
+.login-links a:focus {
+  outline: 2px solid #f0ad4e;
+  outline-offset: 2px;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 480px) {
+  .login-form-container {
+    padding: 30px;
+  }
+
+  .login-form-container h2 {
+    font-size: 20px;
+  }
+
+  .login-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}

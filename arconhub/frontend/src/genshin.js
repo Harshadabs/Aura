@@ -1,7 +1,10 @@
 import React from 'react';
-import Header from './components/header';
-import Footer from './components/footer';
+import Header from './header';
+import Footer from './footer';
 import './gamepage.css'
+import "./login.css";
+import "./styles.css";
+
 const Genshin = () => {
     return (
         <>
