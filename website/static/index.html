@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="static/images/arcon.32x32.jpeg">
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="static/css/game page.css">
+  <link rel="stylesheet" href="static/css/login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <title>Mumbai Hub</title>
+</head>
+
+<body>
+  <div>
+    <div>
+      <header>
+        <nav>
+          <h1>ArconHUB</h1>
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul class="menu">
+          <li><a href='' class="navlink">Home</a></li>
+          <li><a href="#" class="navlink">Shop</a></li>
+          <li><a href='aboutus/' class="navlink">About</a></li>
+          <li><a href="#" class="navlink">Contact</a></li>
+        </ul>
+        <ul>
+          <li><a href='login' class="login-signup">LOGIN / SIGNUP</a></li>
+        </ul>
+        </nav>
+      </header>
+    </div>
+  </div>
+  <div class="container">
+    <div class="slideshow-container" style="margin-top: 3.9em;">
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 3</div>
+        <img src="static/images/balmond-bioroid-starlight-skin-mobile-legends-2k-wallpaper-uhdpaper.com-732@0@f.jpg"
+          style="width:100%">
+        <div class="text">Balmond</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 3</div>
+        <img src="static/images/dyrroth-venom-mobile-legends-skin-2k-wallpaper-uhdpaper.com-331@1@g.jpg"
+          style="width:100%">
+        <div class="text">Dyroth</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 3</div>
+        <img src="static/images/xavier-mobile-legends-2k-wallpaper-uhdpaper.com-334@1@g.jpg" style="width:100%">
+        <div class="text">Xavier</div>
+      </div>
+
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <br>
+
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+    <h2 class="h2game">Games</h2>
+    <div class="grid-container-home container">
+      <div class="card grid-item-home">
+        <a href='mobilelegends/' class="Item__link_home">
+          <div class="product-container">
+            <img src="static/images/mobile legends.png" alt="Mobile Legends" class="image">
+          </div>
+            <span class="Item__price_home">Moba Legends 5V5</span>
+        </a>
+      
+    </div>
+
+    <div class="card grid-item-home">
+      <a href='genshin.html' class="Item__link_home">
+        <div class="product-container">
+          <img src="static/images/Genshin_Impact.png" alt="Genshin Impact" class="image">
+        </div>
+        <span class="Item__price_home">Genshin Impact</span>
+      </a>
+    </div>
+
+    <div class="card grid-item-home">
+      <a href='honkai star rail.html' class="Item__link_home">
+        <div class="product-container">
+          <img src="static/images/honkai star rail.avif" alt="Honkai star rail" class="image">
+        </div>
+        <span class="Item__price_home">Honkai Star Rail</span>
+      </a>
+    </div>
+
+    <div class="card grid-item-home">
+      <a href="#" class="Item__link_home">
+        <div class="product-container">
+          <img src="static/images/clash of clans.jpg" alt="Clash of Clans" class="image">
+        </div>
+        <span class="tag display-topleft coc ">Coming soon !</span>
+        <span class="Item__price_home">Clash of Clans</span>
+      </a>
+    </div>
+  </div>
+  </div>
+  </div>
+  <footer>
+    <div class="footer-container">
+      <p class="footer">&copy; 2024 ArconHUB. All Rights Reserved.</p>
+      <ul>
+        <li><a href="https://www.instagram.com/arcon_store/">About Us</a></li>
+        <li><a href="https://wa.link/agt1r4">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+<script>
+  function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('open');
+  }
+
+
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+
+
+</script>
+
+</html>
