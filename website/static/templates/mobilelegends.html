@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ArconHUB</title>
   <link rel="icon" type="image/x-icon" href="images/arcon.32x32.jpeg">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/game page.css">
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/game page.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css'%}">
 </head>
 
 <body>
@@ -17,13 +18,13 @@
       <h1>ArconHUB</h1>
       <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
         <ul class="menu">
-          <li><a href='' class="navlink">Home</a></li>
+          <li><a href='/' class="navlink">Home</a></li>
           <li><a href="#" class="navlink">Shop</a></li>
           <li><a href='aboutus' class="navlink">About</a></li>
           <li><a href="#" class="navlink">Contact</a></li>
         </ul>
         <ul>
-          <li><a href='login' class="login-signup">LOGIN / SIGNUP</a></li>
+          <li><a href='login/' class="login-signup">LOGIN / SIGNUP</a></li>
         </ul>
     </nav>
   </header>

@@ -1,12 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="images/arcon.32x32.jpeg">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/game page.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" type="image/x-icon" href="static/images/arcon.32x32.jpeg">
+    <link rel="stylesheet" href="{% static 'css/game page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Genshin Impact</title>
   </head>
   <body>
@@ -16,13 +17,13 @@
         <h1>ArconHUB</h1>
         <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
         <ul class="menu">
-          <li><a href='' class="navlink">Home</a></li>
+          <li><a href='/' class="navlink">Home</a></li>
           <li><a href="#" class="navlink">Shop</a></li>
-          <li><a href='aboutus' class="navlink">About</a></li>
+          <li><a href='aboutus/' class="navlink">About</a></li>
           <li><a href="#" class="navlink">Contact</a></li>
         </ul>
         <ul>
-          <li><a href='login' class="login-signup">LOGIN / SIGNUP</a></li>
+          <li><a href='login/' class="login-signup">LOGIN / SIGNUP</a></li>
         </ul>
       </nav>
     </header>
@@ -34,7 +35,7 @@
         </h1>
         <h3>1.) Input Data Game</h3>
         <div class="sidebar">
-            <img src="images/Genshin_Impact.png" alt="Genshin Impact" width="200px" class="game-image" />
+            <img src="{% static 'images/Genshin_Impact.png' %}" alt="Genshin Impact" width="200px" class="game-image" />
             <div class="instructions">
               <h3>
                 How to Top Up the cheapest Genshin Impact Genesis Crystal:
@@ -65,7 +66,7 @@
         <button class="box grid-item">
           <a href="#" class="Item__link">
             <div class="product-container" style="display: block">
-              <img src="images/srnhhu9cip971.webp" alt="#" class="Image";
+              <img src="{% static 'images/srnhhu9cip971.webp'%}" alt="#" class="Image";
               />
               <span class="Item__title"> welkin moons</span>
             </div>
@@ -106,7 +107,7 @@ Crystal.forEach((packageItem) => {
   packageElement.innerHTML = `
     <a href="#" class="Item__link">
       <div class="product-container" style="display: block;">
-        <img src="images/Item_Genesis_Crystal.webp" alt="diamond" class="Image"  />
+        <img src="{% static 'images/Item_Genesis_Crystal.webp' %}" alt="diamond" class="Image"  />
         <span class="Item__title">${packageItem.title}</span>
       </div>
       <span class="Item__price">${packageItem.price}</span>

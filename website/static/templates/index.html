@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,9 +6,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="static/images/arcon.32x32.jpeg">
-  <link rel="stylesheet" href="static/css/styles.css">
-  <link rel="stylesheet" href="static/css/game page.css">
-  <link rel="stylesheet" href="static/css/login.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/game page.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css'%}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -23,13 +24,13 @@
           <h1>ArconHUB</h1>
           <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
         <ul class="menu">
-          <li><a href='' class="navlink">Home</a></li>
+          <li><a href='/' class="navlink">Home</a></li>
           <li><a href="#" class="navlink">Shop</a></li>
           <li><a href='aboutus/' class="navlink">About</a></li>
           <li><a href="#" class="navlink">Contact</a></li>
         </ul>
         <ul>
-          <li><a href='login' class="login-signup">LOGIN / SIGNUP</a></li>
+          <li><a href='login/' class="login-signup">LOGIN / SIGNUP</a></li>
         </ul>
         </nav>
       </header>
@@ -83,7 +84,7 @@
     </div>
 
     <div class="card grid-item-home">
-      <a href='genshin.html' class="Item__link_home">
+      <a href='genshin/' class="Item__link_home">
         <div class="product-container">
           <img src="static/images/Genshin_Impact.png" alt="Genshin Impact" class="image">
         </div>
@@ -92,7 +93,7 @@
     </div>
 
     <div class="card grid-item-home">
-      <a href='honkai star rail.html' class="Item__link_home">
+      <a href='honkai/' class="Item__link_home">
         <div class="product-container">
           <img src="static/images/honkai star rail.avif" alt="Honkai star rail" class="image">
         </div>
