@@ -21,12 +21,12 @@
           <ul class="menu">
             <li><a href='/' class="navlink">Home</a></li>
             <li><a href="#" class="navlink">Shop</a></li>
-            <li><a href='aboutus' class="navlink">About</a></li>
+            <li><a href="{% url 'aboutus' %}" class="navlink">About</a></li>
             <li><a href="#" class="navlink">Contact</a></li>
           </ul>
           <ul>
-            <li><a href='login/' class="login-signup">LOGIN / SIGNUP</a></li>
-          </ul>  
+            <li><a href="{% url 'login' %}" class="login-signup">LOGIN / SIGNUP</a></li>
+          </ul> 
         </nav>
       </header>
       <div class="aboutus">
