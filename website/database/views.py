@@ -20,7 +20,7 @@ def signup_view(request):
 
         # Save the user to the database
         User.objects.create(username=username, email=email, password=hashed_password)
-        return HttpResponse("User registered successfully!")
+        return redirect('/')
 
     return render(request, "signup.html")
 
