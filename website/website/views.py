@@ -24,3 +24,6 @@ def mobilelegends(request):
 
 def genshin(request):
     return render(request, 'genshin.html')
+
+def logout(request):
+    return redirect('index')
