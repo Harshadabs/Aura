@@ -16,14 +16,5 @@ def login(request):
 def signup(request):
     return render(request, 'signup.html')
 
-def honkai(request):
-    return render(request, 'honkai star rail.html')
-
-def mobilelegends(request):
-    return render(request, 'mobilelegends.html')
-
-def genshin(request):
-    return render(request, 'genshin.html')
-
 def logout(request):
     return redirect('index')
