@@ -4,14 +4,20 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="flex justify-between items-center p-4 border-b">
-      <div className="text-2xl font-serif tracking-wider">AURA <span className="text-sm">BY UAE</span></div>
-      <div className="flex-1 mx-6">
+      <nav>
+        <span className="Logo">
+        < img src='src/assets/black aura.png' style={{width: 150 }}></img>
+      </span>
+      <ul>
+      <li className="search-bar">
         <input
           type="text"
           placeholder="Search..."
-          className="w-full border rounded-full px-4 py-1"
         />
-      </div>
+        <span className='icon'>🔍</span>
+      </li>
+      </ul>
+      </nav>
     </header>
   );
 };
