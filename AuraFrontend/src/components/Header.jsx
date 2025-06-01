@@ -5,16 +5,33 @@ const Header = () => {
   return (
     <header className="flex justify-between items-center p-4 border-b">
       <nav>
-        <span className="Logo">
-        < img src='src/assets/black aura.png' style={{width: 150 }}></img>
+        <span >
+        < img className="Logo" src='src/assets/black aura.png' ></img>
       </span>
       <ul>
-      <li className="search-bar">
+      <span className="search-bar">
         <input
           type="text"
           placeholder="Search..."
         />
         <span className='icon'>🔍</span>
+      </span>
+      </ul>
+      <ul>
+      <li className='notif'>
+        <a href='#'>
+        <img className='navbaritm' src='src/assets/bell.png'></img>
+      </a>
+      </li>
+      <li>
+        <a href='#'>
+        <img className='navbaritm' src='src/assets/cart.png'></img>
+      </a>
+      </li>
+      <li>
+        <a href='#'>
+        <img className='navbaritm' src='src/assets/user.png'></img>
+      </a>
       </li>
       </ul>
       </nav>

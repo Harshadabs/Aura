@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <div className='hero-box'>
     <div className="hero-section">
-      <h1>Elegant Sets Of Suits <br /> And Cordsets</h1>
+      <h1 className='outfit'>Elegant Sets Of Suits <br /> And Cordsets</h1>
       <button className="shop-button">Shop Now</button>
     </div>
     </div>
