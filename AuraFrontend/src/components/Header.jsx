@@ -20,17 +20,17 @@ const Header = () => {
       <ul>
       <li className='notif'>
         <a href='#'>
-        <img className='navbaritm' src='src/assets/bell.png'></img>
+        <img className='navbaritm  button' src='src/assets/bell.png'></img>
       </a>
       </li>
       <li>
         <a href='#'>
-        <img className='navbaritm' src='src/assets/cart.png'></img>
+        <img className='navbaritm button' src='src/assets/cart.png'></img>
       </a>
       </li>
       <li>
         <a href='#'>
-        <img className='navbaritm' src='src/assets/user.png'></img>
+        <img className='navbaritm  button' src='src/assets/user.png'></img>
       </a>
       </li>
       </ul>
