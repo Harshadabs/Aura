@@ -2,28 +2,52 @@ import React from 'react';
 
 const Feedback = () => {
   return (
-    <section className="bg-black text-white p-10 flex flex-col md:flex-row justify-between gap-10">
-      <div className="text-3xl font-light">
-        <p>Give Us</p>
-        <p>Your</p>
-        <p>Precious</p>
-        <p>Feedback</p>
+<section class="feedback-section">
+  <div class="feedback-left">
+    <h1>
+      Give Us<br />
+      Your<br />
+      Precious<br />
+      Feedback
+    </h1>
+  </div>
+
+  <div class="feedback-form">
+    <form>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Surname</label>
+          <input type="text" />
+        </div>
       </div>
-      <form className="bg-[#8D6E70] p-6 rounded-md space-y-4 w-full max-w-md">
-        <div className="flex gap-4">
-          <input className="w-1/2 p-2" placeholder="First Name" />
-          <input className="w-1/2 p-2" placeholder="Surname" />
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Contact No.</label>
+          <input type="text" />
         </div>
-        <div className="flex gap-4">
-          <input className="w-1/2 p-2" placeholder="Contact No." />
-          <input className="w-1/2 p-2" placeholder="Email Id" />
+        <div class="form-group">
+          <label>Email Id</label>
+          <input type="email" />
         </div>
-        <textarea className="w-full p-2 h-24" placeholder="Feedback" />
-        <button type="submit" className="bg-white text-black px-4 py-2 border hover:bg-black hover:text-white transition">
-          Submit
-        </button>
-      </form>
-    </section>
+      </div>
+
+      <div class="form-full">
+        <label>Feedback</label>
+        <textarea rows="5"></textarea>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" className='shop-button button'>Submit</button>
+      </div>
+    </form>
+  </div>
+</section>
+
   );
 };
 
