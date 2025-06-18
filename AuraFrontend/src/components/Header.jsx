@@ -1,12 +1,15 @@
 import React from 'react';
 /*import { FaSearch, FaBell, FaShoppingCart, FaUser } from 'react-icons/fa';*/
 
+
 const Header = () => {
   return (
     <header className="flex justify-between items-center p-4 border-b">
       <nav>
         <span >
+          <a href='/'>
         < img className="Logo" src='src/assets/black aura.png' ></img>
+      </a>
       </span>
       <ul>
       <span className="search-bar">
@@ -14,7 +17,9 @@ const Header = () => {
           type="text"
           placeholder="Search..."
         />
+        <a href='#'>
         <span className='icon'>🔍</span>
+        </a>
       </span>
       </ul>
       <ul>
@@ -29,7 +34,7 @@ const Header = () => {
       </a>
       </li>
       <li>
-        <a href='#'>
+        <a href="/Login">
         <img className='navbaritm  button' src='src/assets/user.png'></img>
       </a>
       </li>
