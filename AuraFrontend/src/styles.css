@@ -439,13 +439,13 @@ padding-top: 10 em;
   border: 2px solid #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px #333;
-  width: 500px;
+  width: 500px
 }
 
-form {
+.feedback-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 1.7em;
 }
 
 .form-row {

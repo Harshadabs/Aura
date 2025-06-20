@@ -1,41 +1,57 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User  # If using default User model
+from django.contrib.auth import authenticate
+import json
 import hashlib
 
+@csrf_exempt
 def signup_view(request):
     if request.method == "POST":
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        try:
+            data = json.loads(request.body.decode("utf-8"))
+            email = data.get("email")
+            password = data.get("password")
+            first_name = data.get("first_name", "")
+            last_name = data.get("last_name", "")
+            contact_no = data.get("contact_no", "")
 
-        # Hash the password
-        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            if User.objects.filter(username=email).exists():
+                return JsonResponse({"error": "User already exists!"}, status=400)
 
-        # Check for duplicate users
-        if User.objects.filter(username=username).exists():
-            return HttpResponse("Username already exists!", status=400)
-        if User.objects.filter(email=email).exists():
-            return HttpResponse("Email already exists!", status=400)
+            user = User.objects.create_user(
+                username=email,  # using email as username
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name
+            )
+            user.profile.contact_no = contact_no  # if contact_no is in a separate Profile model
+            user.save()
 
-        # Save the user to the database
-        User.objects.create(username=username, email=email, password=hashed_password)
-        return redirect('/')
+            return JsonResponse({"message": "Signup successful!"}, status=201)
 
-    return render(request, "signup.html")
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
 
+    return JsonResponse({"error": "Only POST allowed"}, status=405)
+
+
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        try:
+            data = json.loads(request.body.decode("utf-8"))
+            email = data.get("email")
+            password = data.get("password")
 
-        # Authenticate the user
-        user = User.objects.filter(username=username, password=hashed_password).first()
-        if user:
-            # Successful login (add session handling if needed)
-            return HttpResponse(f"Welcome, {user.username}!")
-        else:
-            return HttpResponse("Invalid username or password!", status=401)
+            user = authenticate(username=email, password=password)
+            if user:
+                return JsonResponse({"message": f"Welcome, {user.first_name}!"}, status=200)
+            else:
+                return JsonResponse({"error": "Invalid email or password"}, status=401)
 
-    return render(request, "login.html")
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Only POST allowed"}, status=405)
