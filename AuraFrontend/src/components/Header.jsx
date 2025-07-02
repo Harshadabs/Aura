@@ -1,44 +1,49 @@
-import React from 'react';
-/*import { FaSearch, FaBell, FaShoppingCart, FaUser } from 'react-icons/fa';*/
-
+import React, { useState } from 'react';
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <header className="flex justify-between items-center p-4 border-b">
-      <nav>
-        <span >
-          <a href='/'>
-        < img className="Logo" src='src/assets/black aura.png' ></img>
-      </a>
-      </span>
-      <ul>
-      <span className="search-bar">
-        <input
-          type="text"
-          placeholder="Search..."
-        />
-        <a href='#'>
-        <span className='icon'>🔍</span>
+    <header className="header">
+      <nav className="nav-container">
+        <a href="/">
+          <img className="logo" src="src/assets/black aura.png" alt="Logo" />
         </a>
-      </span>
-      </ul>
-      <ul>
-      <li className='notif'>
-        <a href='#'>
-        <img className='navbaritm  button' src='src/assets/bell.png'></img>
-      </a>
-      </li>
-      <li>
-        <a href='#'>
-        <img className='navbaritm button' src='src/assets/cart.png'></img>
-      </a>
-      </li>
-      <li>
-        <a href="/Login">
-        <img className='navbaritm  button' src='src/assets/user.png'></img>
-      </a>
-      </li>
-      </ul>
+
+        <div className="hamburger" onClick={toggleMenu}>
+          &#9776; {/* Hamburger icon */}
+        </div>
+
+        <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+          <li>
+            <div className="search-bar">
+              <input type="text" placeholder="Search..." />
+              <span className="icon">🔍</span>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <img className="navbaritm" src="src/assets/bell.png" alt="Notifications" />
+              <span className="nav-label">Notifications</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img className="navbaritm" src="src/assets/cart.png" alt="Cart" />
+              <span className="nav-label">Cart</span>
+            </a>
+          </li>
+          <li>
+            <a href="/Login">
+              <img className="navbaritm" src="src/assets/user.png" alt="Profile" />
+              <span className="nav-label">Profile</span>
+            </a>
+          </li>
+        </ul>
       </nav>
     </header>
   );

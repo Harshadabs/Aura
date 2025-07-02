@@ -1,24 +1,31 @@
-.login-form-container {
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 40px;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 100%;
-  background-color: #008080;
-  text-align: center;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-  margin-top: 100px; /* Add spacing from the navbar */
+html, body {
+  overflow-x: hidden;
 }
 
-/* Heading */
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #008080;
+  padding: 40px 20px; /* Reduced side padding */
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90vw; /* Use viewport width instead of percentage */
+  box-sizing: border-box; /* Include padding in width */
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  margin: 100px auto 20px;
+  overflow-x: hidden; /* Prevent horizontal scroll within container */
+}
+
+
 .login-form-container h2 {
   font-size: 24px;
   margin-bottom: 20px;
   color: #f0ad4e;
 }
 
-/* Input fields */
+/* ===== INPUT FIELDS ===== */
 .login-form-container input[type="email"],
 .login-form-container input[type="text"],
 .login-form-container input[type="password"] {
@@ -33,25 +40,25 @@
   transition: border-color 0.3s ease;
 }
 
-.login-form{
+.login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.login-form-container input[type="email"]:focus,
-.login-form-container input[type="password"]:focus {
+
+.login-form-container input:focus {
   border-color: #f0ad4e;
   outline: none;
 }
 
-/* Submit button */
+/* ===== SUBMIT BUTTON ===== */
 .login-button {
   width: 100%;
   padding: 12px;
   background-color: #f0ad4e;
   border: none;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 16px;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -62,46 +69,110 @@
   background-color: #ffa726;
 }
 
-/* Link for signup and forgot password */
+/* ===== LINKS SECTION ===== */
 .login-links {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
   font-size: 14px;
-  align-items: center;
+  width: 100%;
 }
 
 .login-links a {
   color: #f0ad4e;
   text-decoration: none;
   transition: color 0.3s ease;
-  align-items: center;
 }
 
 .login-links a:hover {
   color: #ffa726;
 }
 
-/* Accessibility improvements */
+/* ===== ACCESSIBILITY ===== */
 .login-button:focus,
 .login-links a:focus {
   outline: 2px solid #f0ad4e;
   outline-offset: 2px;
 }
 
-/* Responsive styling for smaller screens */
+/* ===== RESPONSIVE STYLING ===== */
 @media (max-width: 480px) {
   .login-form-container {
-    padding: 30px;
+    padding: 30px 20px;
+    margin-top: 80px;
+    width: 95%; /* Almost full width on mobile */
   }
 
   .login-form-container h2 {
     font-size: 20px;
   }
 
+  .login-button {
+    font-size: 14px;
+  }
+
   .login-links {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+  }
+}
+
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #fff;
+    text-align: left; /* Left aligned menu items */
+    padding-left: 20px; /* Padding from left */
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .menu ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .menu ul li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+    width: 100%;
+  }
+
+  .menu ul li a span {
+    font-size: 14px;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .logo {
+    width: 4em;
   }
 }
