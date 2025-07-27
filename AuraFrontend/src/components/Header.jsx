@@ -43,6 +43,12 @@ const Header = () => {
               <span className="nav-label">Profile</span>
             </a>
           </li>
+          <li>
+            <a href="/Profile">
+              <img className="navbaritm" src="src/assets/user.png" alt="Logout" />
+              <span className="nav-label">Logout</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
