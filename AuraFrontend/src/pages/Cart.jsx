@@ -1,10 +1,13 @@
 // src/pages/Cart.jsx
 import React from 'react';
-
+import Header from "../components/Header.jsx"
 const Cart = () => {
   const cartItems = []; // You can later replace this with props or context
 
   return (
+<>
+  <Header />
+  <div className="cart-page">
     <div className="cart-container">
       <h1>Your Cart</h1>
       {cartItems.length === 0 ? (
@@ -21,6 +24,9 @@ const Cart = () => {
         </ul>
       )}
     </div>
+  </div>
+</>
+
   );
 };
 

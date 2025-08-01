@@ -475,3 +475,152 @@ footer {
     height: 15em;
   }
 }
+/* ======= CART PAGE ======= */
+/* ======= CART PAGE LAYOUT ======= */
+.cart-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px; /* space for header */
+  box-sizing: border-box;
+}
+
+.cart-container {
+  padding: 100px 20px 40px; /* top padding accounts for fixed header */
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h1 {
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 1em;
+  text-align: center;
+  color: #000;
+}
+
+.cart-container p {
+  font-size: 1.1em;
+  text-align: center;
+  color: #555;
+}
+
+.cart-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-container li {
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+}
+
+.cart-container li h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.3em;
+  color: #000;
+}
+
+.cart-container li p {
+  font-size: 1em;
+  margin: 0.2em 0;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 80px 15px 30px;
+  }
+
+  .cart-container h1 {
+    font-size: 1.5em;
+  }
+
+  .cart-container li h3 {
+    font-size: 1.1em;
+  }
+}
+
+/* ======= PROFILE PAGE ======= */
+.page-wrapper {
+  min-height: 100vh;
+  padding-top: 100px; /* offset for fixed header */
+  background-color: #ebebeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.profile-title {
+  font-size: 2em;
+  margin-bottom: 1.5em;
+  color: #000;
+}
+
+.profile-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2em;
+  margin-bottom: 2em;
+}
+
+.profile-pic img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  object-fit: cover;
+}
+
+.profile-details {
+  text-align: left;
+  font-size: 1em;
+  line-height: 1.8;
+  color: #333;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.edit-btn,
+.logout-btn {
+  font-size: 1em;
+  padding: 10px 20px;
+  border: 2px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.2s ease;
+}
+
+.edit-btn:hover,
+.logout-btn:hover {
+  transform: translate(-2px, -2px);
+}
+
+.logout-btn {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+}

@@ -32,7 +32,7 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/Cart">
               <img className="navbaritm" src="src/assets/cart.png" alt="Cart" />
               <span className="nav-label">Cart</span>
             </a>

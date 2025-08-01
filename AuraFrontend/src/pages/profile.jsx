@@ -1,9 +1,49 @@
 import React from 'react';
-import './Profile.css';
 
 const Profile = () => {
   return (
-    <div className="page-wrapper">
+   <div className="page-wrapper">
+    <header className="flex justify-between items-center p-4 border-b">
+        <nav className="w-full flex justify-between items-center">
+          <span>
+            <a href='/'>
+              <img className="logo" src='src/assets/black aura.png' alt="logo" />
+            </a>
+          </span>
+
+          {/* Hamburger Icon */}
+          <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            &#9776;
+          </div>
+
+          <div className={`menu ${menuOpen ? 'open' : ''}`}>
+            <ul>
+              <span className="search-bar">
+                <input type="text" placeholder="Search..." />
+                <a href='#'>
+                  <span className='icon'>🔍</span>
+                </a>
+              </span>
+            </ul>
+
+            <ul>
+              <li>
+            <a href="#">
+              <img className="navbaritm" src="src/assets/bell.png" alt="Notifications" />
+              <span className="nav-label">Notifications</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img className="navbaritm" src="src/assets/cart.png" alt="Cart" />
+              <span className="nav-label">Cart</span>
+            </a>
+          </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
       <div className="profile-container">
         <h2 className="profile-title">User Profile</h2>
 
@@ -26,6 +66,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
