@@ -1,14 +1,16 @@
 from fastapi import FastAPI
 from app.core.database import Base, engine
+from app.api.v1 import users, items, cart, discounts
 
-app = FastAPI(title="Aura Backend")
-
-# Import models so SQLAlchemy can detect them
-from app.models import *
-
-# Create tables on startup
 Base.metadata.create_all(bind=engine)
 
+app = FastAPI(title="Aura Ecommerce")
+
+app.include_router(users.router)
+app.include_router(items.router)
+app.include_router(cart.router)
+app.include_router(discounts.router)
+
 @app.get("/")
-def read_root():
-    return {"message": "Aura Backend is live!"}
+def root():
+    return {"message": "Aura backend fully loaded: Users + Items + Cart + Discounts!"}
