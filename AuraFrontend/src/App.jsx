@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Authform from './pages/login-signup.jsx';
 import Home from './pages/home.jsx';
 import Profile from './pages/profile.jsx';
+import Cart from './pages/Cart.jsx';
 
 
 function App() {
