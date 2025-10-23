@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, Text
+from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 class Item(Base):
@@ -10,3 +11,4 @@ class Item(Base):
     price = Column(Float, nullable=False)
     stock = Column(Integer, default=0)
     image_url = Column(String(255))
+    cart_entries = relationship("Cart", back_populates="item")

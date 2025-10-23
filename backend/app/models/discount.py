@@ -1,11 +1,10 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime
-from datetime import datetime, timedelta
+from sqlalchemy import Column, Integer, String, Float, Boolean
 from app.core.database import Base
 
 class Discount(Base):
     __tablename__ = "discounts"
 
     id = Column(Integer, primary_key=True, index=True)
-    code = Column(String(50), unique=True, nullable=False)
-    percentage = Column(Float, nullable=False)
-    expires_at = Column(DateTime, default=lambda: datetime.utcnow() + timedelta(days=30))
+    code = Column(String, unique=True, index=True)
+    percentage = Column(Float)
+    active = Column(Boolean, default=True)
