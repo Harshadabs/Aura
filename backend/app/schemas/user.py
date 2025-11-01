@@ -1,26 +1,27 @@
 from pydantic import BaseModel, EmailStr
 
-# Input (registration)
 class UserCreate(BaseModel):
-    username: str
-    email: EmailStr
+    first_name: str
+    last_name: str
+    contact_no: str
+    email: str
     password: str
+
+class UserResponse(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    email: str
+    contact_no: str
+
+    class Config:
+        from_attributes = True  # replaces orm_mode in Pydantic v2
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
 
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
-
-# Output (response)
-class UserResponse(BaseModel):
-    id: int
-    username: str
-    email: EmailStr
-    is_active: bool
-
-    class Config:
-        orm_mode = True
-
-# Token schema
-class Token(BaseModel):
-    access_token: str
-    token_type: str

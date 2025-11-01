@@ -14,48 +14,47 @@ const AuthForm = () => {
   });
 
   const [isLogin, setIsLogin] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false); // Hamburger toggle
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Handle input changes
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Handle login/signup form submit
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      if (isLogin) {
-        // LOGIN endpoint
-        const response = await api.post("/users/login", {
-          email: form.email,
-          password: form.password,
-        });
-        alert("Login successful!");
-        console.log("Login response:", response.data);
-      } else {
-        // SIGNUP endpoint
-        const response = await api.post("/users/signup", {
-          first_name: form.first_name,
-          last_name: form.last_name,
-          contact_no: form.contact_no,
-          email: form.email,
-          password: form.password,
-        });
-        alert("User registered successfully!");
-        console.log("Signup response:", response.data);
-      }
-    }catch (err) {
-  if (err.response) {
-    console.error("Backend Error:", err.response.data);
-    alert(`Error: ${err.response.data.detail || "Server error"}`);
+  try {
+    if (isLogin) {
+  const response = await api.post("/users/login", {
+    email: form.email,
+    password: form.password,
+  });
+
+  const token = response.data.access_token; // ✅ must match backend key
+  if (token) {
+    localStorage.setItem("token", token);
+    alert("Login successful!");
+    console.log("Stored token:", token);
+    window.location.href = "/profile"; // redirect to profile page
   } else {
-    console.error("Error:", err);
-    alert("Cannot connect to server");
+    alert("Login failed: no token received");
   }
-}
-  };
+    } else {
+      // SIGNUP
+      await api.post("/users/signup", {
+        first_name: form.first_name,
+        last_name: form.last_name,
+        contact_no: form.contact_no,
+        email: form.email,
+        password: form.password,
+      });
+      alert("User registered successfully!");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error connecting to server");
+  }
+};
 
   return (
     <div className="page-wrapper">
@@ -129,7 +128,7 @@ const AuthForm = () => {
             <>
               <div className="name-fields">
                 <div>
-                  <label style={{ color: "#000" }}>First Name</label>
+                  <label>First Name</label>
                   <input
                     type="text"
                     name="first_name"
@@ -139,7 +138,7 @@ const AuthForm = () => {
                   />
                 </div>
                 <div>
-                  <label style={{ color: "#000" }}>Last Name</label>
+                  <label>Last Name</label>
                   <input
                     type="text"
                     name="last_name"
@@ -151,7 +150,7 @@ const AuthForm = () => {
               </div>
 
               <div>
-                <label style={{ color: "#000" }}>Contact No.</label>
+                <label>Contact No.</label>
                 <input
                   type="tel"
                   name="contact_no"
@@ -163,7 +162,7 @@ const AuthForm = () => {
             </>
           )}
 
-          <label style={{ color: "#000" }}>Email</label>
+          <label>Email</label>
           <input
             type="email"
             name="email"
@@ -172,7 +171,7 @@ const AuthForm = () => {
             required
           />
 
-          <label style={{ color: "#000" }}>Password</label>
+          <label>Password</label>
           <input
             type="password"
             name="password"
