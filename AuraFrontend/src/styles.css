@@ -170,6 +170,50 @@ header ul a:hover {
   }
 }
 
+/* ======= LOGIN / PROFILE BUTTON ======= */
+.login-btn {
+  background: linear-gradient(to right, #000, #333);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:hover {
+  background: linear-gradient(to right, #222, #555);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+}
+
+/* Make the button stand out on mobile */
+@media (max-width: 768px) {
+  .login-btn {
+    width: 90%;
+    margin: 10px auto;
+    font-size: 1rem;
+    text-align: center;
+    background: linear-gradient(to right, #111, #444);
+  }
+}
+.profile-greet {
+  font-weight: 500;
+  color: #111;
+  background: #f4f4f4;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+}
+
+
 /* ======= HERO SECTION ======= */
 .hero-section {
   background-color: #d9d9d9;
@@ -544,83 +588,4 @@ footer {
   .cart-container li h3 {
     font-size: 1.1em;
   }
-}
-
-/* ======= PROFILE PAGE ======= */
-.page-wrapper {
-  min-height: 100vh;
-  padding-top: 100px; /* offset for fixed header */
-  background-color: #ebebeb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-container {
-  background-color: #fff;
-  padding: 2em;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-}
-
-.profile-title {
-  font-size: 2em;
-  margin-bottom: 1.5em;
-  color: #000;
-}
-
-.profile-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2em;
-  margin-bottom: 2em;
-}
-
-.profile-pic img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 3px solid #000;
-  object-fit: cover;
-}
-
-.profile-details {
-  text-align: left;
-  font-size: 1em;
-  line-height: 1.8;
-  color: #333;
-}
-
-.profile-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-  flex-wrap: wrap;
-}
-
-.edit-btn,
-.logout-btn {
-  font-size: 1em;
-  padding: 10px 20px;
-  border: 2px solid #000;
-  background-color: #fff;
-  cursor: pointer;
-  font-weight: 500;
-  box-shadow: 4px 4px 0 #000;
-  transition: transform 0.2s ease;
-}
-
-.edit-btn:hover,
-.logout-btn:hover {
-  transform: translate(-2px, -2px);
-}
-
-.logout-btn {
-  background-color: #f44336;
-  color: #fff;
-  border: none;
 }

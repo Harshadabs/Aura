@@ -111,5 +111,4 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 # ------------------ PROTECTED ROUTE ------------------
 @app.get("/users/me", response_model=UserResponse)
 def get_profile(current_user: User = Depends(get_current_user)):
-    """Return the current user's profile (requires login)."""
     return current_user
