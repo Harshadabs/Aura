@@ -25,7 +25,7 @@ const Products = () => {
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
               <div className="product-card" key={item}>
                 <div className="product-img">
-                  <img src="src/assets/placeholder product img.png" alt="Product" />
+                  <img src="src/assets/teal green1.JPG" alt="Product" />
                 </div>
                 <div className="product-info">
                   <h3 className="item-name">Item Name</h3>

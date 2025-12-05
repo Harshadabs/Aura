@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
 from jose import jwt
 from app.core.database import Base, engine, get_db
+from app import models
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse
 
@@ -112,3 +113,5 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 @app.get("/users/me", response_model=UserResponse)
 def get_profile(current_user: User = Depends(get_current_user)):
     return current_user
+
+
