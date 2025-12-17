@@ -1,38 +1,48 @@
 from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
-from jose import jwt
+from jose import jwt, JWTError
+
+# ✅ DATABASE (ONE SOURCE ONLY)
 from app.core.database import Base, engine, get_db
-from app import models
+
+# ✅ IMPORT ALL MODELS (VERY IMPORTANT)
+import app.models  # loads User, Order, Wishlist
+
+# ✅ SCHEMAS & MODELS
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse
 
 # ---------- CONFIG ----------
-SECRET_KEY = "23456543q3we4565er67"  # change this to something secure
+SECRET_KEY = "23456543q3we4565er67"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # ---------- INIT ----------
-Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Aura Ecommerce")
+
+# ✅ CREATE TABLES (ONLY ONCE, AFTER MODELS IMPORT)
+Base.metadata.create_all(bind=engine)
 
 # ---------- MIDDLEWARE ----------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # later restrict this to your frontend domain
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # ---------- TOKEN CREATION ----------
-def create_access_token(data: dict, expires_delta: timedelta = None):
+def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.utcnow() + (
+        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 # ---------- ROUTES ----------
 @app.get("/")
@@ -50,15 +60,13 @@ def signup_user(user: UserCreate, db: Session = Depends(get_db)):
         last_name=user.last_name,
         contact_no=user.contact_no,
         email=user.email,
-        password=user.password,  # ⚠️ In production: hash this before saving
+        password=user.password,  # ⚠️ hash later
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
     return new_user
 
-from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
 @app.post("/users/login")
 def login_user(user: UserLogin, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == user.email).first()
@@ -67,14 +75,10 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
     if existing_user.password != user.password:
         raise HTTPException(status_code=401, detail="Incorrect password")
 
-    # ✅ Create JWT token
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": existing_user.email},
-        expires_delta=access_token_expires
+        data={"sub": existing_user.email}
     )
 
-    # ✅ Return token and user info
     return {
         "access_token": access_token,
         "token_type": "bearer",
@@ -86,11 +90,13 @@ def login_user(user: UserLogin, db: Session = Depends(get_db)):
         }
     }
 
-# ------------------ AUTH SETUP ------------------
+# ------------------ AUTH ------------------
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
 
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-    """Decode JWT token and return the logged-in user."""
+def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db)
+):
     credentials_exception = HTTPException(
         status_code=401,
         detail="Could not validate credentials",
@@ -98,7 +104,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
+        email: str | None = payload.get("sub")
         if email is None:
             raise credentials_exception
     except JWTError:
@@ -109,9 +115,19 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise credentials_exception
     return user
 
-# ------------------ PROTECTED ROUTE ------------------
 @app.get("/users/me", response_model=UserResponse)
 def get_profile(current_user: User = Depends(get_current_user)):
     return current_user
 
+# ---------- ROUTERS ----------
+from app.api.v1 import orders
+app.include_router(orders.router)
 
+from app.api.v1 import wishlist
+app.include_router(wishlist.router)
+
+from app.api.v1 import products
+app.include_router(products.router)
+
+from app.api.v1 import cart
+app.include_router(cart.router)

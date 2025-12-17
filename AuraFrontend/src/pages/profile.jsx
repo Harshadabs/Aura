@@ -8,7 +8,20 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const [selectedTab, setSelectedTab] = useState("orders");
+  const [wishlist, setWishlist] = useState([]);
   const navigate = useNavigate();
+
+  const fetchWishlist = async () => {
+  try {
+    const response = await api.get("/wishlist", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setWishlist(response.data);
+  } catch (err) {
+    console.error("Error fetching wishlist:", err);
+  }
+};
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -145,32 +158,26 @@ const Profile = () => {
               </div>
             </div>
           ) : (
-            <div className="wishlist-section">
-              <h2>Your Wishlist ❤️</h2>
-              <div className="wishlist-grid">
-                <div className="wishlist-item">
-                  <img
-                    src="https://i.ibb.co/JzQdXwL/valorant.jpg"
-                    alt="Valorant Points"
-                  />
-                  <p>Valorant Points</p>
-                </div>
-                <div className="wishlist-item">
-                  <img
-                    src="https://i.ibb.co/YR9DCnG/pubg.jpg"
-                    alt="PUBG UC"
-                  />
-                  <p>PUBG UC</p>
-                </div>
-                <div className="wishlist-item">
-                  <img
-                    src="https://i.ibb.co/3T6dcL8/diamonds.jpg"
-                    alt="Free Fire Diamonds"
-                  />
-                  <p>Free Fire Diamonds</p>
-                </div>
-              </div>
-            </div>
+           <div className="wishlist-section">
+  <h2>Your Wishlist ❤️</h2>
+
+  {wishlist.length > 0 ? (
+    <div className="wishlist-grid">
+      {wishlist.map((item) => (
+        <div key={item.id} className="wishlist-item">
+          <img
+            src={item.image_url}
+            alt={item.product_name}
+          />
+          <p>{item.product_name}</p>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p style={{ textAlign: "center" }}>Your wishlist is empty.</p>
+  )}
+</div>
+
           )}
         </div>
       </div>

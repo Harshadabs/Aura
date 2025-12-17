@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, Float
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 
@@ -7,10 +7,9 @@ class Cart(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    item_id = Column(Integer, ForeignKey("items.id"))
+    product_id = Column(Integer, ForeignKey("products.id"))
     quantity = Column(Integer, default=1)
-    total_price = Column(Float)
+    total_price = Column(Integer)
 
-    user = relationship("User", back_populates="cart_items")
-    item = relationship("Item", back_populates="cart_entries")
-    
+    user = relationship("User", back_populates="cart")
+    product = relationship("Product")

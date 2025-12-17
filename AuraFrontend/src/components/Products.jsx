@@ -1,44 +1,124 @@
-import React, { useRef } from 'react';
-import '/src/styles.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
+import Header from "../components/Header";
 
 const Products = () => {
-  const sliderRef = useRef(null);
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
-  const scroll = (direction) => {
-    const { current } = sliderRef;
-    const scrollAmount = 300; // adjust as needed
-    if (direction === 'left') {
-      current.scrollLeft -= scrollAmount;
-    } else {
-      current.scrollLeft += scrollAmount;
+  // ---------------- FETCH PRODUCTS ----------------
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await api.get("/products");
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Failed to fetch products", err);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // ---------------- AUTH HEADER ----------------
+  const getAuthHeader = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login first");
+      navigate("/login");
+      return null;
+    }
+    return { Authorization: `Bearer ${token}` };
+  };
+
+  // ---------------- ADD TO CART ----------------
+  const handleAddToCart = async (productId) => {
+    const headers = getAuthHeader();
+    if (!headers) return;
+
+    try {
+      await api.post(
+        "/cart",
+        {
+          product_id: productId,
+          quantity: 1,
+        },
+        { headers }
+      );
+      alert("Added to cart 🛒");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to add to cart");
+    }
+  };
+
+  // ---------------- ADD TO WISHLIST ----------------
+  const handleWishlist = async (productId) => {
+    const headers = getAuthHeader();
+    if (!headers) return;
+
+    try {
+      await api.post(
+        "/wishlist",
+        { product_id: productId },
+        { headers }
+      );
+      alert("Added to wishlist ❤️");
+    } catch (err) {
+      console.error(err);
+      alert("Already in wishlist or error occurred");
     }
   };
 
   return (
-    <section className='products-wrapper'>
-      <div className="products-container">
-        <h2 className="products-title">Products</h2>
+    <>
+      <Header />
 
-        <div className="slider-controls">
-          <button className="slider-btn" onClick={() => scroll('left')}>&lt;</button>
-          <div className="products-slider" ref={sliderRef}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-              <div className="product-card" key={item}>
-                <div className="product-img">
-                  <img src="src/assets/teal green1.JPG" alt="Product" />
-                </div>
-                <div className="product-info">
-                  <h3 className="item-name">Item Name</h3>
-                  <p className="item-desc">Description</p>
-                  <p className="item-price">₹₹₹₹</p>
+      <section className="products-page">
+        <h1 className="products-heading">Shop Our Collection</h1>
+
+        <div className="products-grid">
+          {products.map((product) => (
+            <div className="product-card" key={product.id}>
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="product-image"
+              />
+
+              <div className="product-info">
+                <h3>{product.name}</h3>
+                <p className="product-desc">{product.description}</p>
+                <p className="product-price">₹{product.price}</p>
+
+                <div className="product-actions">
+                  <button
+                    className="btn-outline"
+                    onClick={() => navigate(`/products/${product.id}`)}
+                  >
+                    Shop Now
+                  </button>
+
+                  <button
+                    className="btn-outline"
+                    onClick={() => handleWishlist(product.id)}
+                  >
+                    Wishlist
+                  </button>
+
+                  <button
+                    className="btn-primary"
+                    onClick={() => handleAddToCart(product.id)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-          <button className="slider-btn" onClick={() => scroll('right')}>&gt;</button>
+            </div>
+          ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

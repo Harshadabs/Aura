@@ -1,15 +1,18 @@
 from pydantic import BaseModel
 
-class CartBase(BaseModel):
-    user_id: int
-    item_id: int
+# -------- CREATE CART --------
+class CartCreate(BaseModel):
+    product_id: int
     quantity: int
 
-class CartCreate(CartBase):
-    pass
 
-class CartResponse(CartBase):
+# -------- RESPONSE SCHEMA --------
+class CartResponse(BaseModel):
     id: int
+    user_id: int
+    product_id: int
+    quantity: int
+    total_price: int
 
     class Config:
-        from_attributes = True
+        from_attributes = True  # IMPORTANT for SQLAlchemy

@@ -35,7 +35,7 @@ const AuthForm = () => {
     localStorage.setItem("token", token);
     alert("Login successful!");
     console.log("Stored token:", token);
-    window.location.href = "/profile"; // redirect to profile page
+    window.location.href = "/"; // redirect to profile page
   } else {
     alert("Login failed: no token received");
   }
