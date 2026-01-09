@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 
+class CartAdd(BaseModel):
+    product_id: int
+
 # -------- CREATE CART --------
 class CartCreate(BaseModel):
     product_id: int

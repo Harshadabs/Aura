@@ -80,11 +80,8 @@ const Products = () => {
         <div className="products-grid">
           {products.map((product) => (
             <div className="product-card" key={product.id}>
-              <img
-                src={product.image_url}
-                alt={product.name}
-                className="product-image"
-              />
+              <img className="product-image " src={`http://127.0.0.1:8000${product.image_url}`} alt={product.name} />
+
 
               <div className="product-info">
                 <h3>{product.name}</h3>

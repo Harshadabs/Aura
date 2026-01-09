@@ -119,6 +119,10 @@ def get_current_user(
 def get_profile(current_user: User = Depends(get_current_user)):
     return current_user
 
+# ---------- STATIC ----------
+from fastapi.staticfiles import StaticFiles
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 # ---------- ROUTERS ----------
 from app.api.v1 import orders
 app.include_router(orders.router)
@@ -131,3 +135,4 @@ app.include_router(products.router)
 
 from app.api.v1 import cart
 app.include_router(cart.router)
+
