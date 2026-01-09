@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-import Header from "../components/Header";
+import Header from "../components/Navbar";
 import "./profile.css";
 
 const Profile = () => {

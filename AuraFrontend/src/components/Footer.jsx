@@ -1,15 +1,14 @@
-import React from 'react';
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="p-6 bg-white border-t">
-      <h3 className="text-xl font-medium border-b inline-block mb-2">Contact Us</h3>
-      <ul className="space-y-1">
-        <li>Instagram Links</li>
-        <li>Facebook Links</li>
-        <li>Whatsapp Bot</li>
-      </ul>
-    </footer>
+    <motion.footer
+      className="border-t border-border py-10 text-center text-sm text-muted"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+    >
+      © {new Date().getFullYear()} Aura. Crafted with restraint.
+    </motion.footer>
   );
 };
 

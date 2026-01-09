@@ -1,25 +1,43 @@
-import React from 'react';
+import { motion } from "framer-motion";
 
 const AboutUs = () => {
   return (
-<section className="herobox">
-  <div className="hero-section">
-    <h2 className="about-heading">About Us</h2>
-    <span className="about-content">
-      <h1 className="about-text outfit">Rooted in friendship and bound by a shared creative vision, our journey began when three individuals each with a unique eye for design and a deep love for tradition came together with one goal to create a brand that reimagines ethnic wear for the modern world.
-<br />
-We started with a simple belief that tradition doesn’t have to be old fashioned, and timeless style can still be refreshingly new. Drawing from our cultural heritage, personal experiences, and a mutual passion for textiles, we built a brand that reflects both who we are and what we stand for.
-<br />
-Every piece we create blends craftsmanship with comfort, elegance with ease. From everyday classics to statement festive ensembles, our designs honor traditional silhouettes while embracing contemporary detail and versatility.
-<br />
-More than just a clothing label, our brand is a reflection of friendship, authenticity, and artistry. Each collection is thoughtfully designed keeping in mind the woman who values heritage but lives in the present.
-<br />
-This is our story. Three friends. One dream. A shared love for ethnic fashion. And a commitment to creating clothing that celebrates every woman’s individuality and roots.</h1>
-      <img src="src/assets/about us.png" className="aboutimg" alt="About Us" />
-    </span>
-  </div>
-</section>
+    <motion.section
+      className="herobox"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      <div className="hero-section">
+        <motion.h2
+          className="about-heading"
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+        >
+          About Us
+        </motion.h2>
 
+        <span className="about-content">
+          <motion.h1
+            className="about-text outfit"
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Rooted in friendship and bound by a shared creative vision...
+          </motion.h1>
+
+          <motion.img
+            src="src/assets/about us.png"
+            className="aboutimg"
+            alt="About Us"
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+          />
+        </span>
+      </div>
+    </motion.section>
   );
 };
 

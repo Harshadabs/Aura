@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
-import Header from "../components/Header";
+import Header from "../components/Navbar";
 import "./cart.css";
 
 const Cart = () => {

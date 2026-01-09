@@ -1,13 +1,13 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-import Header from "../components/Header";
+import Navbar from "./Navbar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-  // ---------------- FETCH PRODUCTS ----------------
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -20,7 +20,6 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  // ---------------- AUTH HEADER ----------------
   const getAuthHeader = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -31,7 +30,6 @@ const Products = () => {
     return { Authorization: `Bearer ${token}` };
   };
 
-  // ---------------- ADD TO CART ----------------
   const handleAddToCart = async (productId) => {
     const headers = getAuthHeader();
     if (!headers) return;
@@ -39,49 +37,55 @@ const Products = () => {
     try {
       await api.post(
         "/cart",
-        {
-          product_id: productId,
-          quantity: 1,
-        },
+        { product_id: productId, quantity: 1 },
         { headers }
       );
       alert("Added to cart 🛒");
-    } catch (err) {
-      console.error(err);
+    } catch {
       alert("Failed to add to cart");
     }
   };
 
-  // ---------------- ADD TO WISHLIST ----------------
   const handleWishlist = async (productId) => {
     const headers = getAuthHeader();
     if (!headers) return;
 
     try {
-      await api.post(
-        "/wishlist",
-        { product_id: productId },
-        { headers }
-      );
+      await api.post("/wishlist", { product_id: productId }, { headers });
       alert("Added to wishlist ❤️");
-    } catch (err) {
-      console.error(err);
-      alert("Already in wishlist or error occurred");
+    } catch {
+      alert("Already in wishlist");
     }
   };
 
   return (
     <>
-      <Header />
+      <Navbar />
 
       <section className="products-page">
-        <h1 className="products-heading">Shop Our Collection</h1>
+        <motion.h1
+          className="products-heading"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+        >
+          Shop Our Collection
+        </motion.h1>
 
         <div className="products-grid">
           {products.map((product) => (
-            <div className="product-card" key={product.id}>
-              <img className="product-image " src={`http://127.0.0.1:8000${product.image_url}`} alt={product.name} />
-
+            <motion.div
+              className="product-card"
+              key={product.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <img
+                className="product-image"
+                src={`http://127.0.0.1:8000${product.image_url}`}
+                alt={product.name}
+              />
 
               <div className="product-info">
                 <h3>{product.name}</h3>
@@ -103,15 +107,17 @@ const Products = () => {
                     Wishlist
                   </button>
 
-                  <button
+                  <motion.button
                     className="btn-primary"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => handleAddToCart(product.id)}
                   >
                     Add to Cart
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

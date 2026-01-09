@@ -1,22 +1,21 @@
-// App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Authform from './pages/login-signup.jsx';
-import Home from './pages/home.jsx';
-import Profile from './pages/profile.jsx';
-import Cart from './pages/Cart.jsx';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppShell from "./app/AppShell";
+import Home from "./pages/Home";
+import ProductDetails from "./components/Products";
+import Login from "./pages/login-signup.jsx";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Authform />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<AppShell />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+        </Route>
+
+        <Route path="/login" element={<Login />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

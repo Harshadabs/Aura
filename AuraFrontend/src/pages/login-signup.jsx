@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./login-signup.css";
-import "/src/styles.css";
+import "/src/styles/styles.css";
 import "/src/login.css";
 import api from "../api";
 

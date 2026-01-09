@@ -1,53 +1,42 @@
-import React from 'react';
+import { motion } from "framer-motion";
 
 const Feedback = () => {
   return (
-<section className="feedback-section">
-  <div className="feedback-left">
-    <h1>
-      Give Us<br />
-      Your<br />
-      Precious<br />
-      Feedback<br />
-    </h1>
-  </div>
-
-  <div className="feedback-form">
-    <form>
-      <div className="form-row">
-        <div className="form-group">
-          <label>First Name</label>
-          <input type="text" />
-        </div>
-        <div className="form-group">
-          <label>Surname</label>
-          <input type="text" />
-        </div>
+    <motion.section
+      className="feedback-section"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
+    >
+      <div className="feedback-left">
+        <motion.h1
+          initial={{ x: -30, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+        >
+          Give Us<br />Your<br />Precious<br />Feedback
+        </motion.h1>
       </div>
 
-      <div className="form-row">
-        <div className="form-group">
-          <label>Contact No.</label>
-          <input type="text" />
-        </div>
-        <div className="form-group">
-          <label>Email Id</label>
-          <input type="email" />
-        </div>
-      </div>
-
-      <div className="form-full">
-        <label>Feedback</label>
-        <textarea rows="5"></textarea>
-      </div>
-
-      <div className="form-submit">
-        <button type="submit" className='shop-button button'>Submit</button>
-      </div>
-    </form>
-  </div>
-</section>
-
+      <motion.div
+        className="feedback-form"
+        initial={{ x: 30, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+      >
+        <form>
+          <div className="form-row">
+            <input placeholder="First Name" />
+            <input placeholder="Surname" />
+          </div>
+          <div className="form-row">
+            <input placeholder="Contact No." />
+            <input placeholder="Email" />
+          </div>
+          <textarea rows="5" placeholder="Feedback"></textarea>
+          <button className="shop-button button">Submit</button>
+        </form>
+      </motion.div>
+    </motion.section>
   );
 };
 
