@@ -2,18 +2,19 @@ import { motion } from "framer-motion";
 
 const AboutUs = () => {
   return (
-    <motion.section
-      className="herobox"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
-      <div className="hero-section">
+    <section className="herobox">
+      <motion.div
+        className="hero-section"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <motion.h2
           className="about-heading"
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 16, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
           About Us
         </motion.h2>
@@ -21,9 +22,9 @@ const AboutUs = () => {
         <span className="about-content">
           <motion.h1
             className="about-text outfit"
-            initial={{ y: 40, opacity: 0 }}
+            initial={{ y: 24, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             Rooted in friendship and bound by a shared creative vision...
           </motion.h1>
@@ -32,12 +33,13 @@ const AboutUs = () => {
             src="src/assets/about us.png"
             className="aboutimg"
             alt="About Us"
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.96, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
           />
         </span>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 };
 

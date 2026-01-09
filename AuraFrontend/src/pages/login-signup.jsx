@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "./login-signup.css";
-import "/src/styles/styles.css";
-import "/src/login.css";
+import { motion } from "framer-motion";
 import api from "../api";
+import "/src/styles/styles.css";
 
 const AuthForm = () => {
   const [form, setForm] = useState({
@@ -21,93 +20,44 @@ const AuthForm = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    if (isLogin) {
-  const response = await api.post("/users/login", {
-    email: form.email,
-    password: form.password,
-  });
-
-  const token = response.data.access_token; // ✅ must match backend key
-  if (token) {
-    localStorage.setItem("token", token);
-    alert("Login successful!");
-    console.log("Stored token:", token);
-    window.location.href = "/"; // redirect to profile page
-  } else {
-    alert("Login failed: no token received");
-  }
-    } else {
-      // SIGNUP
-      await api.post("/users/signup", {
-        first_name: form.first_name,
-        last_name: form.last_name,
-        contact_no: form.contact_no,
-        email: form.email,
-        password: form.password,
-      });
-      alert("User registered successfully!");
+    e.preventDefault();
+    try {
+      if (isLogin) {
+        const response = await api.post("/users/login", {
+          email: form.email,
+          password: form.password,
+        });
+        const token = response.data.access_token;
+        if (token) {
+          localStorage.setItem("token", token);
+          alert("Login successful!");
+          window.location.href = "/"; // redirect to homepage
+        } else alert("Login failed: no token received");
+      } else {
+        await api.post("/users/signup", {
+          first_name: form.first_name,
+          last_name: form.last_name,
+          contact_no: form.contact_no,
+          email: form.email,
+          password: form.password,
+        });
+        alert("User registered successfully!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error connecting to server");
     }
-  } catch (err) {
-    console.error(err);
-    alert("Error connecting to server");
-  }
-};
+  };
 
   return (
     <div className="page-wrapper">
-      <header className="flex justify-between items-center p-4 border-b">
-        <nav className="w-full flex justify-between items-center">
-          <span>
-            <a href="/">
-              <img className="logo" src="src/assets/black aura.png" alt="logo" />
-            </a>
-          </span>
-
-          {/* Hamburger Icon */}
-          <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-            &#9776;
-          </div>
-
-          <div className={`menu ${menuOpen ? "open" : ""}`}>
-            <ul>
-              <span className="search-bar">
-                <input type="text" placeholder="Search..." />
-                <a href="#">
-                  <span className="icon">🔍</span>
-                </a>
-              </span>
-            </ul>
-
-            <ul>
-              <li>
-                <a href="#">
-                  <img
-                    className="navbaritm"
-                    src="src/assets/bell.png"
-                    alt="Notifications"
-                  />
-                  <span className="nav-label">Notifications</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img
-                    className="navbaritm"
-                    src="src/assets/cart.png"
-                    alt="Cart"
-                  />
-                  <span className="nav-label">Cart</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-
-      <div className="form-container">
+      <motion.div
+        className="form-container"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Toggle Tabs */}
         <div className="toggle-tabs">
           <button
             className={isLogin ? "tab active" : "tab"}
@@ -119,72 +69,87 @@ const AuthForm = () => {
             className={!isLogin ? "tab active" : "tab"}
             onClick={() => setIsLogin(false)}
           >
-            Sign-up
+            Sign Up
           </button>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <motion.form
+          className="auth-form"
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {!isLogin && (
-            <>
-              <div className="name-fields">
-                <div>
-                  <label>First Name</label>
-                  <input
-                    type="text"
-                    name="first_name"
-                    value={form.first_name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>Last Name</label>
-                  <input
-                    type="text"
-                    name="last_name"
-                    value={form.last_name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label>Contact No.</label>
+            <div className="name-fields">
+              <motion.div whileFocus={{ scale: 1.02 }}>
+                <label>First Name</label>
                 <input
-                  type="tel"
-                  name="contact_no"
-                  value={form.contact_no}
+                  type="text"
+                  name="first_name"
+                  value={form.first_name}
                   onChange={handleChange}
                   required
                 />
-              </div>
-            </>
+              </motion.div>
+              <motion.div whileFocus={{ scale: 1.02 }}>
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  value={form.last_name}
+                  onChange={handleChange}
+                  required
+                />
+              </motion.div>
+            </div>
           )}
 
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
+          {!isLogin && (
+            <motion.div whileFocus={{ scale: 1.02 }}>
+              <label>Contact No.</label>
+              <input
+                type="tel"
+                name="contact_no"
+                value={form.contact_no}
+                onChange={handleChange}
+                required
+              />
+            </motion.div>
+          )}
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
+          <motion.div whileFocus={{ scale: 1.02 }}>
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </motion.div>
 
-          <button type="submit" className="submit-btn">
+          <motion.div whileFocus={{ scale: 1.02 }}>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </motion.div>
+
+          <motion.button
+            type="submit"
+            className="submit-btn animate-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
             {isLogin ? "Login" : "Sign Up"}
-          </button>
-        </form>
-      </div>
+          </motion.button>
+        </motion.form>
+      </motion.div>
     </div>
   );
 };

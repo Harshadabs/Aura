@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import api from "../api";
-import Header from "../components/Navbar";
-import "./profile.css";
+import Header from "./components/Navbar";
+import "./styles/styles.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -81,7 +82,13 @@ const Profile = () => {
 
       <div className="profile-container">
         {/* ================= PROFILE CARD ================= */}
-        <div className="profile-card">
+        <motion.div
+          className="profile-card animate-card"
+          whileHover={{ y: -4, scale: 1.02 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
           <h1>Welcome, {user.first_name} 👤</h1>
 
           <img
@@ -97,10 +104,10 @@ const Profile = () => {
             <strong>Contact:</strong> {user.contact_no}
           </p>
 
-          <button className="logout-btn" onClick={handleLogout}>
+          <button className="logout-btn animate-btn" onClick={handleLogout}>
             Logout
           </button>
-        </div>
+        </motion.div>
 
         {/* ================= MAIN CONTENT ================= */}
         <div className="main-content">
@@ -125,7 +132,14 @@ const Profile = () => {
             <div className="order-history">
               {orders.length > 0 ? (
                 orders.map((order) => (
-                  <div key={order.id} className="order-card">
+                  <motion.div
+                    key={order.id}
+                    className="order-card animate-card"
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: order.id * 0.05 }}
+                  >
                     <p>
                       <strong>Order ID:</strong> #{order.id}
                     </p>
@@ -141,7 +155,7 @@ const Profile = () => {
                     >
                       {order.status}
                     </span>
-                  </div>
+                  </motion.div>
                 ))
               ) : (
                 <p>No orders yet.</p>
@@ -156,7 +170,14 @@ const Profile = () => {
 
               {wishlist.length > 0 ? (
                 wishlist.map((item) => (
-                  <div key={item.id} className="wishlist-item">
+                  <motion.div
+                    key={item.id}
+                    className="wishlist-item animate-card"
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: item.id * 0.05 }}
+                  >
                     {/* IMAGE */}
                     <div className="wishlist-item-img">
                       <img
@@ -177,7 +198,7 @@ const Profile = () => {
                       <div style={{ display: "flex", gap: "0.8rem" }}>
                         {/* MOVE TO CART */}
                         <button
-                          className="wishlist-btn"
+                          className="wishlist-btn animate-btn"
                           onClick={async () => {
                             const token = localStorage.getItem("token");
 
@@ -186,16 +207,12 @@ const Profile = () => {
                                 "/cart",
                                 { product_id: item.product_id },
                                 {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
-                                  },
+                                  headers: { Authorization: `Bearer ${token}` },
                                 }
                               );
 
                               await api.delete(`/wishlist/${item.id}`, {
-                                headers: {
-                                  Authorization: `Bearer ${token}`,
-                                },
+                                headers: { Authorization: `Bearer ${token}` },
                               });
 
                               setWishlist((prev) =>
@@ -212,16 +229,14 @@ const Profile = () => {
 
                         {/* REMOVE */}
                         <button
-                          className="wishlist-btn"
+                          className="wishlist-btn animate-btn"
                           style={{ background: "#dc2626" }}
                           onClick={async () => {
                             const token = localStorage.getItem("token");
 
                             try {
                               await api.delete(`/wishlist/${item.id}`, {
-                                headers: {
-                                  Authorization: `Bearer ${token}`,
-                                },
+                                headers: { Authorization: `Bearer ${token}` },
                               });
 
                               setWishlist((prev) =>
@@ -237,7 +252,7 @@ const Profile = () => {
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))
               ) : (
                 <p className="wishlist-empty">Your wishlist is empty.</p>

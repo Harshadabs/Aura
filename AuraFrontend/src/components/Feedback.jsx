@@ -2,26 +2,23 @@ import { motion } from "framer-motion";
 
 const Feedback = () => {
   return (
-    <motion.section
-      className="feedback-section"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      viewport={{ once: true }}
-    >
-      <div className="feedback-left">
-        <motion.h1
-          initial={{ x: -30, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-        >
+    <section className="feedback-section">
+      <motion.div
+        className="feedback-left"
+        initial={{ opacity: 0, x: -24 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+      >
+        <h1>
           Give Us<br />Your<br />Precious<br />Feedback
-        </motion.h1>
-      </div>
+        </h1>
+      </motion.div>
 
       <motion.div
         className="feedback-form"
-        initial={{ x: 30, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
+        initial={{ opacity: 0, x: 24 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
       >
         <form>
           <div className="form-row">
@@ -36,7 +33,7 @@ const Feedback = () => {
           <button className="shop-button button">Submit</button>
         </form>
       </motion.div>
-    </motion.section>
+    </section>
   );
 };
 

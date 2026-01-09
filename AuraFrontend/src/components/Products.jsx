@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-import Navbar from "./Navbar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -60,25 +59,25 @@ const Products = () => {
 
   return (
     <>
-      <Navbar />
 
       <section className="products-page">
         <motion.h1
           className="products-heading"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
           Shop Our Collection
         </motion.h1>
 
         <div className="products-grid">
-          {products.map((product) => (
+          {products.map((product, i) => (
             <motion.div
               className="product-card"
               key={product.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ delay: i * 0.05 }}
               viewport={{ once: true }}
             >
               <img
@@ -109,8 +108,8 @@ const Products = () => {
 
                   <motion.button
                     className="btn-primary"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
                     onClick={() => handleAddToCart(product.id)}
                   >
                     Add to Cart

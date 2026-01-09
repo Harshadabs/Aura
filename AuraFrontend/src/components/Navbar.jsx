@@ -56,7 +56,7 @@ export default function Navbar() {
           onClick={() => navigate("/")}
           className="cursor-pointer text-lg font-semibold tracking-wide"
         >
-          AURA
+          <img src="AuraFrontend/src/assets/black aura.png"></img>
         </span>
 
         {/* Desktop Nav */}
