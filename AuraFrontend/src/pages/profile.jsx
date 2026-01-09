@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import api from "../api";
-import Header from "./components/Navbar";
-import "./styles/styles.css";
+import "../styles/styles.css";
+import Navbar from "../components/NavBar";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -78,7 +78,7 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
+      <Navbar />
 
       <div className="profile-container">
         {/* ================= PROFILE CARD ================= */}

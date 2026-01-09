@@ -8,9 +8,8 @@ from app.core.auth import get_current_user
 from app.models.product import Product
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import get_db
-from models import Wishlist, Product
-from auth import get_current_user
+from app.models import Wishlist, Product
+from app.core.auth import get_current_user
 
 router = APIRouter(prefix="/wishlist", tags=["Wishlist"])
 
