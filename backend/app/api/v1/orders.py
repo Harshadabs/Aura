@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.core.database import get_db
+<<<<<<< HEAD
 from app.models.order import Order, OrderItem
 from app.models.cart import Cart
 from app.models.user import User
@@ -57,3 +58,19 @@ def my_orders(
     user: User = Depends(get_current_user),
 ):
     return db.query(Order).filter(Order.user_id == user.id).order_by(Order.id.desc()).all()
+=======
+
+router = APIRouter(prefix="/orders", tags=["Orders"])
+
+@router.post("/")
+def create_order(user_id: int, amount: float, db: Session = Depends(get_db)):
+    order = Order(user_id=user_id, amount=amount)
+    db.add(order)
+    db.commit()
+    db.refresh(order)
+    return order
+
+@router.get("/{user_id}")
+def get_user_orders(user_id: int, db: Session = Depends(get_db)):
+    return db.query(Order).filter(Order.user_id == user_id).all()
+>>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)

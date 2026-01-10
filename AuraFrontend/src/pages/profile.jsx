@@ -8,11 +8,17 @@ import Navbar from "../components/NavBar";
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
+<<<<<<< HEAD
   const [wishlist, setWishlist] = useState([]);
   const [selectedTab, setSelectedTab] = useState("orders");
   const navigate = useNavigate();
 
   /* ================= AUTH CHECK ================= */
+=======
+  const [selectedTab, setSelectedTab] = useState("orders");
+  const navigate = useNavigate();
+
+>>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -243,6 +249,36 @@ useEffect(() => {
                 <p className="wishlist-empty">Your wishlist is empty.</p>
               )}
             </div>
+<<<<<<< HEAD
+=======
+          ) : (
+            <div className="wishlist-section">
+              <h2>Your Wishlist ❤️</h2>
+              <div className="wishlist-grid">
+                <div className="wishlist-item">
+                  <img
+                    src="https://i.ibb.co/JzQdXwL/valorant.jpg"
+                    alt="Valorant Points"
+                  />
+                  <p>Valorant Points</p>
+                </div>
+                <div className="wishlist-item">
+                  <img
+                    src="https://i.ibb.co/YR9DCnG/pubg.jpg"
+                    alt="PUBG UC"
+                  />
+                  <p>PUBG UC</p>
+                </div>
+                <div className="wishlist-item">
+                  <img
+                    src="https://i.ibb.co/3T6dcL8/diamonds.jpg"
+                    alt="Free Fire Diamonds"
+                  />
+                  <p>Free Fire Diamonds</p>
+                </div>
+              </div>
+            </div>
+>>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
           )}
         </div>
       </div>

@@ -13,10 +13,6 @@ class User(Base):
     password = Column(String)
 
     profile = relationship("Profile", back_populates="user", uselist=False)
-    orders = relationship("Order", back_populates="user", cascade="all, delete")
-    wishlist = relationship("Wishlist", back_populates="user", cascade="all, delete")
-    cart = relationship("Cart", back_populates="user", cascade="all, delete")
-
 
 class Profile(Base):
     __tablename__ = "profiles"
@@ -29,5 +25,3 @@ class Profile(Base):
     address = Column(Text, nullable=True)
 
     user = relationship("User", back_populates="profile")
-
-
