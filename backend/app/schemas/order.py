@@ -1,17 +1,20 @@
 from pydantic import BaseModel
+from typing import List
 
-class ItemBase(BaseModel):
-    name: str
-    description: str | None = None
+class OrderItemRead(BaseModel):
+    product_id: int
+    quantity: int
     price: float
-    stock: int
-    image_url: str | None = None
 
-class ItemCreate(ItemBase):
-    pass
+    class Config:
+        from_attributes = True
 
-class ItemResponse(ItemBase):
+
+class OrderRead(BaseModel):
     id: int
+    total_amount: float
+    status: str
+    items: List[OrderItemRead]
 
     class Config:
         from_attributes = True

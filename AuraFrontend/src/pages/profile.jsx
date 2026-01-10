@@ -128,40 +128,29 @@ const Profile = () => {
           </div>
 
           {/* ================= ORDERS ================= */}
-          {selectedTab === "orders" && (
-            <div className="order-history">
-              {orders.length > 0 ? (
-                orders.map((order) => (
-                  <motion.div
-                    key={order.id}
-                    className="order-card animate-card"
-                    whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: order.id * 0.05 }}
-                  >
-                    <p>
-                      <strong>Order ID:</strong> #{order.id}
-                    </p>
-                    <p>
-                      <strong>Item:</strong> {order.item_name}
-                    </p>
-                    <p>
-                      <strong>Date:</strong>{" "}
-                      {new Date(order.date).toLocaleDateString()}
-                    </p>
-                    <span
-                      className={`order-status ${order.status.toLowerCase()}`}
-                    >
-                      {order.status}
-                    </span>
-                  </motion.div>
-                ))
-              ) : (
-                <p>No orders yet.</p>
-              )}
-            </div>
-          )}
+          <p>
+  <strong>Order ID:</strong> #{order.id}
+</p>
+
+<p>
+  <strong>Status:</strong>{" "}
+  <span className={`order-status ${order.status.toLowerCase()}`}>
+    {order.status}
+  </span>
+</p>
+
+<div className="order-items">
+  {order.items.map((item, idx) => (
+    <p key={idx}>
+      Product #{item.product_id} × {item.quantity} — ₹{item.price}
+    </p>
+  ))}
+</div>
+
+<p className="order-total">
+  <strong>Total:</strong> ₹{order.total_amount}
+</p>
+
 
           {/* ================= WISHLIST ================= */}
           {selectedTab === "wishlist" && (

@@ -8,9 +8,6 @@ from jose import jwt, JWTError
 # ✅ DATABASE (ONE SOURCE ONLY)
 from app.core.database import Base, engine, get_db
 
-# ✅ IMPORT ALL MODELS (VERY IMPORTANT)
-import app.models  # loads User, Order, Wishlist
-
 # ✅ SCHEMAS & MODELS
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse

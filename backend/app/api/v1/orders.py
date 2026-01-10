@@ -1,29 +1,55 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
+
 from app.core.database import get_db
-from app.core.auth import get_current_user
+from app.models.order import Order, OrderItem
 from app.models.cart import Cart
-from app.models.order import Order
-from app.models.product import Product
+from app.models.user import User
+from app.schemas.order import OrderRead
+from app.core.auth import get_current_user
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
-@router.post("/checkout")
-def checkout(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
-    cart_items = db.query(Cart).filter(Cart.user_id == current_user.id).all()
+
+@router.post("/checkout", response_model=OrderRead)
+def checkout(
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    cart_items = db.query(Cart).filter(Cart.user_id == user.id).all()
+
+    if not cart_items:
+        raise HTTPException(status_code=400, detail="Cart is empty")
+
+    total = sum(item.price * item.quantity for item in cart_items)
+
+    order = Order(
+        user_id=user.id,
+        total_amount=total,
+        status="PLACED"
+    )
+    db.add(order)
+    db.commit()
+    db.refresh(order)
 
     for item in cart_items:
-        product = db.query(Product).filter(Product.id == item.product_id).first()
+        db.add(OrderItem(
+            order_id=order.id,
+            product_id=item.product_id,
+            quantity=item.quantity,
+            price=item.price
+        ))
 
-        order = Order(
-            user_id=current_user.id,
-            product_name=product.name,
-            price=product.price,
-            quantity=item.quantity
-        )
-        db.add(order)
-
-    db.query(Cart).filter(Cart.user_id == current_user.id).delete()
+    db.query(Cart).filter(Cart.user_id == user.id).delete()
     db.commit()
 
-    return {"message": "Order placed successfully"}
+    return order
+
+
+@router.get("/", response_model=List[OrderRead])
+def my_orders(
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    return db.query(Order).filter(Order.user_id == user.id).order_by(Order.id.desc()).all()

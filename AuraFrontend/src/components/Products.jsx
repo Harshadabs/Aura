@@ -19,15 +19,7 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  const getAuthHeader = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Please login first");
-      navigate("/login");
-      return null;
-    }
-    return { Authorization: `Bearer ${token}` };
-  };
+
 
   const handleAddToCart = async (productId) => {
     const headers = getAuthHeader();
