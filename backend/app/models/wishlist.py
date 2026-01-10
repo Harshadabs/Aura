@@ -1,12 +1,9 @@
-from sqlalchemy import Column, Integer, ForeignKey, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, ForeignKey
 from app.core.database import Base
 
 class Wishlist(Base):
     __tablename__ = "wishlist"
-    id = Column(Integer, primary_key=True, index=True)
-    product_id = Column(Integer)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    image_url = Column(String(255))
 
-    user = relationship("User", back_populates="wishlist")
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    product_id = Column(Integer)

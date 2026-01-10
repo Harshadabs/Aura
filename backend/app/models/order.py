@@ -1,27 +1,9 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, ForeignKey
 from app.core.database import Base
 
 class Order(Base):
     __tablename__ = "orders"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    total_amount = Column(Float)
-    status = Column(String, default="PLACED")
-
-    items = relationship("OrderItem", back_populates="order")
-    user = relationship("User", back_populates="orders")
-
-
-class OrderItem(Base):
-    __tablename__ = "order_items"
-
     id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey("orders.id"))
-    product_id = Column(Integer)
-    quantity = Column(Integer)
-    price = Column(Float)
-
-    order = relationship("Order", back_populates="items")
-    
+    user_id = Column(Integer)
+    total = Column(Integer)

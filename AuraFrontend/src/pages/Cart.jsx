@@ -12,16 +12,17 @@ export default function Cart() {
   }, []);
 
   const fetchCart = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get("/cart");
-      setCart(Array.isArray(res.data) ? res.data : []);
-    } catch (e) {
-      setError("Unable to load cart");
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    setLoading(true);
+    const res = await api.get("/cart");
+    setCart(res.data || []);
+  } catch {
+    setError("Unable to load cart");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const updateQty = async (id, qty) => {
     if (qty < 1) return;

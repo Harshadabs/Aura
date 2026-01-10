@@ -1,12 +1,10 @@
-from pydantic import BaseModel
 
-class WishlistCreate(BaseModel):
-    product_id: int
+from sqlalchemy import Column, Integer, ForeignKey
+from app.core.database import Base
 
-class WishlistResponse(BaseModel):
-    id: int
-    product_id: int
-    user_id: int
+class Wishlist(Base):
+    __tablename__ = "wishlist"
 
-    class Config:
-        orm_mode = True
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    product_id = Column(Integer)

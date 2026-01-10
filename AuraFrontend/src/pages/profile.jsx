@@ -23,48 +23,28 @@ const Profile = () => {
 
   /* ================= FETCH PROFILE ================= */
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await api.get("/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUser(res.data);
-      } catch (err) {
-        console.error(err);
-        navigate("/login");
-      }
-    };
-    fetchProfile();
-  }, [navigate]);
+  const fetchProfile = async () => {
+    try {
+      const res = await api.get("/users/me");
+      setUser(res.data);
+    } catch {
+      navigate("/login");
+    }
+  };
+  fetchProfile();
+}, []);
+
 
   /* ================= FETCH ORDERS ================= */
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const token = localStorage.getItem("token");
-      const res = await api.get("/orders", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setOrders(res.data);
-    };
-    fetchOrders();
-  }, []);
+ useEffect(() => {
+  api.get("/orders").then((res) => setOrders(res.data));
+}, []);
+
 
   /* ================= FETCH WISHLIST ================= */
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await api.get("/wishlist/", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setWishlist(res.data);
-      } catch (err) {
-        console.error("Wishlist error:", err);
-      }
-    };
-    fetchWishlist();
-  }, []);
+useEffect(() => {
+  api.get("/wishlist").then((res) => setWishlist(res.data));
+}, []);
 
   /* ================= LOGOUT ================= */
   const handleLogout = () => {
@@ -128,29 +108,45 @@ const Profile = () => {
           </div>
 
           {/* ================= ORDERS ================= */}
+{selectedTab === "orders" && (
+  <div className="orders-section">
+    <h2>📦 Your Orders</h2>
+
+    {orders.length > 0 ? (
+      orders.map((order) => (
+        <motion.div
+          key={order.id}
+          className="order-card animate-card"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <p><strong>Order ID:</strong> #{order.id}</p>
+
           <p>
-  <strong>Order ID:</strong> #{order.id}
-</p>
+            <strong>Status:</strong>{" "}
+            <span className={`order-status ${order.status.toLowerCase()}`}>
+              {order.status}
+            </span>
+          </p>
 
-<p>
-  <strong>Status:</strong>{" "}
-  <span className={`order-status ${order.status.toLowerCase()}`}>
-    {order.status}
-  </span>
-</p>
+          <div className="order-items">
+            {order.items.map((item, idx) => (
+              <p key={idx}>
+                Product #{item.product_id} × {item.quantity} — ₹{item.price}
+              </p>
+            ))}
+          </div>
 
-<div className="order-items">
-  {order.items.map((item, idx) => (
-    <p key={idx}>
-      Product #{item.product_id} × {item.quantity} — ₹{item.price}
-    </p>
-  ))}
-</div>
-
-<p className="order-total">
-  <strong>Total:</strong> ₹{order.total_amount}
-</p>
-
+          <p className="order-total">
+            <strong>Total:</strong> ₹{order.total_amount}
+          </p>
+        </motion.div>
+      ))
+    ) : (
+      <p>No orders yet.</p>
+    )}
+  </div>
+)}
 
           {/* ================= WISHLIST ================= */}
           {selectedTab === "wishlist" && (

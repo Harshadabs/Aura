@@ -19,28 +19,24 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-
 const handleAddToCart = async (productId) => {
   try {
-    await api.post("/cart", { product_id: productId, quantity: 1 });
-    alert("Added to cart 🛒");
+    await api.post("/cart", { product_id: productId });
+    alert("Added to cart");
   } catch (err) {
-    alert("Failed to add to cart");
+    alert("Unauthorized – login again");
   }
 };
 
+const handleWishlist = async (productId) => {
+  try {
+    await api.post("/wishlist", { product_id: productId });
+    alert("Added to wishlist");
+  } catch {
+    alert("Unauthorized – login again");
+  }
+};
 
-  const handleWishlist = async (productId) => {
-    const headers = getAuthHeader();
-    if (!headers) return;
-
-    try {
-      await api.post("/wishlist", { product_id: productId }, { headers });
-      alert("Added to wishlist ❤️");
-    } catch {
-      alert("Already in wishlist");
-    }
-  };
 
   return (
     <>
