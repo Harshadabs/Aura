@@ -16,6 +16,10 @@ def add_to_cart(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user)
 ):
+    product = db.query(Product).filter(Product.id == data.product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
     cart = db.query(Cart).filter(
         Cart.user_id == current_user.id,
         Cart.product_id == data.product_id
@@ -33,6 +37,7 @@ def add_to_cart(
 
     db.commit()
     return {"message": "Added to cart"}
+
 
 # ➖ Decrease quantity
 @router.put("/decrease/{cart_id}")

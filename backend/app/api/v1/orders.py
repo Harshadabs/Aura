@@ -8,9 +8,9 @@ from app.models.cart import Cart
 from app.models.user import User
 from app.schemas.order import OrderRead
 from app.core.auth import get_current_user
+from app.models.product import Product
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
-
 
 @router.post("/checkout", response_model=OrderRead)
 def checkout(
@@ -22,7 +22,11 @@ def checkout(
     if not cart_items:
         raise HTTPException(status_code=400, detail="Cart is empty")
 
-    total = sum(item.price * item.quantity for item in cart_items)
+    total = 0
+
+    for item in cart_items:
+        product = db.query(Product).filter(Product.id == item.product_id).first()
+        total += product.price * item.quantity
 
     order = Order(
         user_id=user.id,
@@ -34,18 +38,18 @@ def checkout(
     db.refresh(order)
 
     for item in cart_items:
+        product = db.query(Product).filter(Product.id == item.product_id).first()
         db.add(OrderItem(
             order_id=order.id,
-            product_id=item.product_id,
+            product_id=product.id,
             quantity=item.quantity,
-            price=item.price
+            price=product.price
         ))
 
     db.query(Cart).filter(Cart.user_id == user.id).delete()
     db.commit()
 
     return order
-
 
 @router.get("/", response_model=List[OrderRead])
 def my_orders(

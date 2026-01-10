@@ -20,22 +20,15 @@ const Products = () => {
   }, []);
 
 
+const handleAddToCart = async (productId) => {
+  try {
+    await api.post("/cart", { product_id: productId, quantity: 1 });
+    alert("Added to cart 🛒");
+  } catch (err) {
+    alert("Failed to add to cart");
+  }
+};
 
-  const handleAddToCart = async (productId) => {
-    const headers = getAuthHeader();
-    if (!headers) return;
-
-    try {
-      await api.post(
-        "/cart",
-        { product_id: productId, quantity: 1 },
-        { headers }
-      );
-      alert("Added to cart 🛒");
-    } catch {
-      alert("Failed to add to cart");
-    }
-  };
 
   const handleWishlist = async (productId) => {
     const headers = getAuthHeader();
