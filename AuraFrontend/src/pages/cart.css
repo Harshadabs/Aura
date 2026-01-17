@@ -1,0 +1,47 @@
+html, body {
+  overflow-x: hidden;
+}
+
+.cart-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.cart-item img {
+  width: 100px;
+  border-radius: 10px;
+}
+
+.cart-details {
+  flex: 1;
+}
+
+.cart-item button {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  font-size: 1.1rem;
+}

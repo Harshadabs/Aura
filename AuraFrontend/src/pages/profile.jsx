@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import api from "../api";
+
 import "../styles/styles.css";
 import Navbar from "../components/NavBar";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
-<<<<<<< HEAD
   const [wishlist, setWishlist] = useState([]);
   const [selectedTab, setSelectedTab] = useState("orders");
   const navigate = useNavigate();
 
   /* ================= AUTH CHECK ================= */
-=======
-  const [selectedTab, setSelectedTab] = useState("orders");
-  const navigate = useNavigate();
-
->>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -29,28 +23,79 @@ const Profile = () => {
 
   /* ================= FETCH PROFILE ================= */
   useEffect(() => {
-  const fetchProfile = async () => {
-    try {
-      const res = await api.get("/users/me");
-      setUser(res.data);
-    } catch {
-      navigate("/login");
-    }
-  };
-  fetchProfile();
-}, []);
+    const fetchProfile = async () => {
+      try {
+        const res = await api.get("/users/me");
+        setUser(res.data);
+      } catch {
+        navigate("/login");
+      }
+    };
+    fetchProfile();
+  }, []);
 
 
   /* ================= FETCH ORDERS ================= */
- useEffect(() => {
-  api.get("/orders").then((res) => setOrders(res.data));
-}, []);
+  useEffect(() => {
+    api.get("/orders").then((res) => setOrders(res.data));
+  }, []);
 
 
   /* ================= FETCH WISHLIST ================= */
-useEffect(() => {
-  api.get("/wishlist").then((res) => setWishlist(res.data));
-}, []);
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      const { data } = await supabase
+        .from("wishlist")
+        .select(`
+        id,
+        product:products (
+          id,
+          name,
+          price,
+          image_url
+        )
+      `);
+
+      setWishlist(
+        data.map((w) => ({
+          id: w.id,
+          product_id: w.product.id,
+          name: w.product.name,
+          price: w.product.price,
+          image_url: w.product.image_url,
+        }))
+      );
+    };
+
+    fetchWishlist();
+  }, []);
+
+    /* ================= ADD TO CART ================= */
+  const moveToCart = async (item) => {
+  try {
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      alert("Please login again");
+      return;
+    }
+
+    await supabase.from("cart").insert({
+      product_id: item.product_id,
+      user_id: user.id,
+    });
+
+    await supabase.from("wishlist").delete().eq("id", item.id);
+
+    setWishlist((prev) => prev.filter((w) => w.id !== item.id));
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  }
+};
 
   /* ================= LOGOUT ================= */
   const handleLogout = () => {
@@ -114,45 +159,45 @@ useEffect(() => {
           </div>
 
           {/* ================= ORDERS ================= */}
-{selectedTab === "orders" && (
-  <div className="orders-section">
-    <h2>📦 Your Orders</h2>
+          {selectedTab === "orders" && (
+            <div className="orders-section">
+              <h2>📦 Your Orders</h2>
 
-    {orders.length > 0 ? (
-      orders.map((order) => (
-        <motion.div
-          key={order.id}
-          className="order-card animate-card"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <p><strong>Order ID:</strong> #{order.id}</p>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <motion.div
+                    key={order.id}
+                    className="order-card animate-card"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <p><strong>Order ID:</strong> #{order.id}</p>
 
-          <p>
-            <strong>Status:</strong>{" "}
-            <span className={`order-status ${order.status.toLowerCase()}`}>
-              {order.status}
-            </span>
-          </p>
+                    <p>
+                      <strong>Status:</strong>{" "}
+                      <span className={`order-status ${order.status.toLowerCase()}`}>
+                        {order.status}
+                      </span>
+                    </p>
 
-          <div className="order-items">
-            {order.items.map((item, idx) => (
-              <p key={idx}>
-                Product #{item.product_id} × {item.quantity} — ₹{item.price}
-              </p>
-            ))}
-          </div>
+                    <div className="order-items">
+                      {order.items.map((item, idx) => (
+                        <p key={idx}>
+                          Product #{item.product_id} × {item.quantity} — ₹{item.price}
+                        </p>
+                      ))}
+                    </div>
 
-          <p className="order-total">
-            <strong>Total:</strong> ₹{order.total_amount}
-          </p>
-        </motion.div>
-      ))
-    ) : (
-      <p>No orders yet.</p>
-    )}
-  </div>
-)}
+                    <p className="order-total">
+                      <strong>Total:</strong> ₹{order.total_amount}
+                    </p>
+                  </motion.div>
+                ))
+              ) : (
+                <p>No orders yet.</p>
+              )}
+            </div>
+          )}
 
           {/* ================= WISHLIST ================= */}
           {selectedTab === "wishlist" && (
@@ -175,8 +220,8 @@ useEffect(() => {
                         src={`http://127.0.0.1:8000${item.image_url}`}
                         alt={item.name}
                         onError={(e) =>
-                          (e.currentTarget.src =
-                            "https://via.placeholder.com/150")
+                        (e.currentTarget.src =
+                          "https://via.placeholder.com/150")
                         }
                       />
                     </div>
@@ -188,55 +233,19 @@ useEffect(() => {
 
                       <div style={{ display: "flex", gap: "0.8rem" }}>
                         {/* MOVE TO CART */}
-                        <button
-                          className="wishlist-btn animate-btn"
-                          onClick={async () => {
-                            const token = localStorage.getItem("token");
+                        <button onClick={() => moveToCart(item)}>
+  Move to Cart
+</button>
 
-                            try {
-                              await api.post(
-                                "/cart",
-                                { product_id: item.product_id },
-                                {
-                                  headers: { Authorization: `Bearer ${token}` },
-                                }
-                              );
-
-                              await api.delete(`/wishlist/${item.id}`, {
-                                headers: { Authorization: `Bearer ${token}` },
-                              });
-
-                              setWishlist((prev) =>
-                                prev.filter((w) => w.id !== item.id)
-                              );
-                            } catch (err) {
-                              console.error(err);
-                              alert("Failed to move item");
-                            }
-                          }}
-                        >
-                          Move to Cart
-                        </button>
 
                         {/* REMOVE */}
                         <button
                           className="wishlist-btn animate-btn"
                           style={{ background: "#dc2626" }}
                           onClick={async () => {
-                            const token = localStorage.getItem("token");
+                            await supabase.from("wishlist").delete().eq("id", item.id);
+setWishlist((prev) => prev.filter((w) => w.id !== item.id));
 
-                            try {
-                              await api.delete(`/wishlist/${item.id}`, {
-                                headers: { Authorization: `Bearer ${token}` },
-                              });
-
-                              setWishlist((prev) =>
-                                prev.filter((w) => w.id !== item.id)
-                              );
-                            } catch (err) {
-                              console.error(err);
-                              alert("Failed to remove item");
-                            }
                           }}
                         >
                           Remove
@@ -249,36 +258,6 @@ useEffect(() => {
                 <p className="wishlist-empty">Your wishlist is empty.</p>
               )}
             </div>
-<<<<<<< HEAD
-=======
-          ) : (
-            <div className="wishlist-section">
-              <h2>Your Wishlist ❤️</h2>
-              <div className="wishlist-grid">
-                <div className="wishlist-item">
-                  <img
-                    src="https://i.ibb.co/JzQdXwL/valorant.jpg"
-                    alt="Valorant Points"
-                  />
-                  <p>Valorant Points</p>
-                </div>
-                <div className="wishlist-item">
-                  <img
-                    src="https://i.ibb.co/YR9DCnG/pubg.jpg"
-                    alt="PUBG UC"
-                  />
-                  <p>PUBG UC</p>
-                </div>
-                <div className="wishlist-item">
-                  <img
-                    src="https://i.ibb.co/3T6dcL8/diamonds.jpg"
-                    alt="Free Fire Diamonds"
-                  />
-                  <p>Free Fire Diamonds</p>
-                </div>
-              </div>
-            </div>
->>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
           )}
         </div>
       </div>

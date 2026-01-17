@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import api from "../api";
+
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

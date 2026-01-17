@@ -1,0 +1,116 @@
+/* Page styling */
+body{
+    background: #888;
+}
+.page-wrapper {
+  background: #888;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+.byline {
+  font-size: 0.6em;
+  letter-spacing: 2px;
+}
+
+.search {
+  flex: 1;
+  margin: 0 1em;
+  padding: 0.5em;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+}
+
+.icons span {
+  font-size: 1.5em;
+  margin-left: 1em;
+}
+
+/* Form container */
+.form-container {
+  background: #c8c8c8;
+  width: 400px;
+  margin: 10% auto;
+  padding: 2em;
+  border-radius: 20px;
+  border: 2px solid #333;
+}
+
+/* Toggle tabs */
+.toggle-tabs {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #333;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 1.5em;
+}
+
+.tab {
+  flex: 1;
+  padding: 0.5em;
+  background: transparent;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tab.active {
+  background: #000;
+  color: white;
+}
+
+/* Form fields */
+.auth-form label {
+  display: block;
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.5em;
+  background: #444;
+  border: none;
+  color: #fff;
+  margin-top: 0.3em;
+}
+
+/* Name fields side-by-side */
+.name-fields {
+  display: flex;
+  gap: 1em;
+}
+
+.name-fields div {
+  flex: 1;
+}
+
+/* Submit button */
+.submit-btn {
+  margin-top: 2em;
+  width: 100%;
+  padding: 0.7em;
+  border: 2px solid #000;
+  background: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+}

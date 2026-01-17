@@ -1,144 +1,134 @@
-<<<<<<< HEAD
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
-=======
-import React, { useRef } from 'react';
-import '/src/styles.css';
->>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
+import { supabase } from "/supabaseclient.js";
 
 const Products = () => {
+  const [products, setProducts] = useState([]);
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
+  const [selectedSizes, setSelectedSizes] = useState({});
 
-<<<<<<< HEAD
+
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        const res = await api.get("/products");
-        setProducts(res.data);
-      } catch (err) {
-        console.error("Failed to fetch products", err);
-      }
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!error) setProducts(data);
+      else console.error(error);
     };
+
     fetchProducts();
   }, []);
 
-const handleAddToCart = async (productId) => {
-  try {
-    await api.post("/cart", { product_id: productId });
-    alert("Added to cart");
-  } catch (err) {
-    alert("Unauthorized – login again");
-  }
-};
-
-const handleWishlist = async (productId) => {
-  try {
-    await api.post("/wishlist", { product_id: productId });
-    alert("Added to wishlist");
-  } catch {
-    alert("Unauthorized – login again");
-  }
-};
-
-
-  return (
-    <>
-
-      <section className="products-page">
-        <motion.h1
-          className="products-heading"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Shop Our Collection
-        </motion.h1>
-
-        <div className="products-grid">
-          {products.map((product, i) => (
-            <motion.div
-              className="product-card"
-              key={product.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              viewport={{ once: true }}
-            >
-              <img
-                className="product-image"
-                src={`http://127.0.0.1:8000${product.image_url}`}
-                alt={product.name}
-              />
-
-              <div className="product-info">
-                <h3>{product.name}</h3>
-                <p className="product-desc">{product.description}</p>
-                <p className="product-price">₹{product.price}</p>
-
-                <div className="product-actions">
-                  <button
-                    className="btn-outline"
-                    onClick={() => navigate(`/products/${product.id}`)}
-                  >
-                    Shop Now
-                  </button>
-
-                  <button
-                    className="btn-outline"
-                    onClick={() => handleWishlist(product.id)}
-                  >
-                    Wishlist
-                  </button>
-
-                  <motion.button
-                    className="btn-primary"
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
-                    onClick={() => handleAddToCart(product.id)}
-                  >
-                    Add to Cart
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-=======
-  const scroll = (direction) => {
-    const { current } = sliderRef;
-    const scrollAmount = 300; // adjust as needed
-    if (direction === 'left') {
-      current.scrollLeft -= scrollAmount;
-    } else {
-      current.scrollLeft += scrollAmount;
+  const handleAddToCart = async (product) => {
+    const size = selectedSizes[product.id];
+    if (!size) {
+      alert("Please select a size");
+      return;
     }
+
+    const user = await supabase.auth.getUser();
+
+    await supabase.from("cart").insert({
+      product_id: product.id,
+      size,
+      user_id: user.data.user.id
+    });
+
+    alert("Added to cart");
+  };
+
+  const handleWishlist = async (productId) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return alert("Please login first");
+
+    await supabase.from("wishlist").insert({
+      user_id: user.id,
+      product_id: productId,
+    });
+
+    alert("Added to wishlist");
   };
 
   return (
-    <section className='products-wrapper'>
-      <div className="products-container">
-        <h2 className="products-title">Products</h2>
+    <section className="products-page">
+      <motion.h1 className="products-heading">
+        Shop Our Collection
+      </motion.h1>
 
-        <div className="slider-controls">
-          <button className="slider-btn" onClick={() => scroll('left')}>&lt;</button>
-          <div className="products-slider" ref={sliderRef}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-              <div className="product-card" key={item}>
-                <div className="product-img">
-                  <img src="src/assets/teal green1.JPG" alt="Product" />
-                </div>
-                <div className="product-info">
-                  <h3 className="item-name">Item Name</h3>
-                  <p className="item-desc">Description</p>
-                  <p className="item-price">₹₹₹₹</p>
-                </div>
+      <div className="products-grid" ref={sliderRef}>
+        {products.map((product, i) => (
+          <motion.div
+            className="product-card"
+            key={product.id}
+            whileHover={{ y: -8 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          >
+            <div className="product-image-wrap">
+  <motion.img
+    src={`https://mljcpaxpdmlmagwjqrxg.supabase.co/storage/v1/object/public/${product.image_url}`}
+    alt={product.name}
+    className="product-image"
+    whileHover={{ scale: 1.06 }}
+    transition={{ duration: 0.3 }}
+  />
+</div>
+
+            <div className="sizes">
+              {product.sizes.map((size) => (
+                <button
+                  key={size}
+                  className={
+                    selectedSizes[product.id] === size
+                      ? "size-btn active"
+                      : "size-btn"
+                  }
+                  onClick={() =>
+                    setSelectedSizes({
+                      ...selectedSizes,
+                      [product.id]: size,
+                    })
+                  }
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+
+            <div className="product-info">
+              <h3>{product.name}</h3>
+              <p className="product-price">₹{product.price}</p>
+
+              <div className="product-actions">
+
+                <button
+                  className="btn-outline"
+                  onClick={() => navigate(`/products/${product.id}`)}
+                >
+                  Shop Now
+                </button>
+
+                <button
+                  className="btn-outline"
+                  onClick={() => handleWishlist(product.id)}
+                >
+                  Wishlist
+                </button>
+
+                <motion.button
+                  className="btn-primary"
+                  onClick={() => handleAddToCart(product.id)}
+                >
+                  Add to Cart
+                </motion.button>
               </div>
-            ))}
-          </div>
-          <button className="slider-btn" onClick={() => scroll('right')}>&gt;</button>
->>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

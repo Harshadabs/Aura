@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import api from "../api";
+import { supabase } from "../../supabaseclient";
 import "/src/styles/styles.css";
 
 const AuthForm = () => {
@@ -13,71 +13,58 @@ const AuthForm = () => {
   });
 
   const [isLogin, setIsLogin] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // 🔐 Email Login / Signup
   const handleSubmit = async (e) => {
-<<<<<<< HEAD
-    e.preventDefault();
-    try {
-      if (isLogin) {
-        const response = await api.post("/users/login", {
-          email: form.email,
-          password: form.password,
-        });
-        const token = response.data.access_token;
-        if (token) {
-          localStorage.setItem("token", token);
-          alert("Login successful!");
-          window.location.href = "/"; // redirect to homepage
-        } else alert("Login failed: no token received");
-      } else {
-        await api.post("/users/signup", {
-          first_name: form.first_name,
-          last_name: form.last_name,
-          contact_no: form.contact_no,
-          email: form.email,
-          password: form.password,
-        });
-        alert("User registered successfully!");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error connecting to server");
-=======
   e.preventDefault();
 
   try {
     if (isLogin) {
-  const response = await api.post("/users/login", {
-    email: form.email,
-    password: form.password,
-  });
-
-  const token = response.data.access_token; // ✅ must match backend key
-  if (token) {
-    localStorage.setItem("token", token);
-    alert("Login successful!");
-    console.log("Stored token:", token);
-    window.location.href = "/profile"; // redirect to profile page
-  } else {
-    alert("Login failed: no token received");
-  }
-    } else {
-      // SIGNUP
-      await api.post("/users/signup", {
-        first_name: form.first_name,
-        last_name: form.last_name,
-        contact_no: form.contact_no,
+      const { error } = await supabase.auth.signInWithPassword({
         email: form.email,
         password: form.password,
       });
-      alert("User registered successfully!");
->>>>>>> parent of 0c0b719e (trouble shooting wishlist, orders and cart)
+
+      if (error) throw error;
+
+      alert("Login successful!");
+      window.location.href = "/";
+    } else {
+      const { data, error } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password,
+      });
+
+      if (error) throw error;
+
+      const user = data.user;
+
+      if (!user) {
+        alert("Check email for verification");
+        return;
+      }
+      if (profileError) throw profileError;
+
+      alert("Signup successful!");
     }
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Something went wrong");
+  }
+};
+
+  // 🔑 Google Login
+  const handleGoogleLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: window.location.origin,
+      },
+    });
   };
 
   return (
@@ -123,6 +110,7 @@ const AuthForm = () => {
                   required
                 />
               </motion.div>
+
               <motion.div whileFocus={{ scale: 1.02 }}>
                 <label>Last Name</label>
                 <input
@@ -180,6 +168,16 @@ const AuthForm = () => {
             {isLogin ? "Login" : "Sign Up"}
           </motion.button>
         </motion.form>
+
+        {/* Google Sign In */}
+        <motion.button
+          className="tab active "
+          onClick={handleGoogleLogin}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          Continue with Google
+        </motion.button>
       </motion.div>
     </div>
   );
