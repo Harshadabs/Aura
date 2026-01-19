@@ -58,14 +58,6 @@ header nav {
   height: auto;
 }
 
-.hamburger {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
 .nav-menu {
   display: flex;
   gap: 20px;
@@ -121,12 +113,35 @@ header ul {
 header ul a:hover {
   color: #00d4ff;
 }
+  
+/* =========================
+   NAVBAR RESPONSIVE FIX
+========================= */
+
+/* Hamburger hidden by default (desktop) */
+.hamburger-btn {
+  font-size: 22px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  display: none !important;
+}
+
+/* Show hamburger only on mobile */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+}
+
 
 /* ======= MOBILE RESPONSIVENESS ======= */
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
+  
 
   .nav-menu {
     flex-direction: column;
@@ -469,10 +484,6 @@ footer {
 
 /* ======= MEDIA QUERIES ======= */
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
   .menu {
     display: none;
     flex-direction: column;

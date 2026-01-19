@@ -1,116 +1,125 @@
-/* Page styling */
-body{
-    background: #888;
-}
-.page-wrapper {
-  background: #888;
-  height: 100vh;
-  font-family: sans-serif;
+
+* {
+  box-sizing: border-box;
 }
 
-/* Navbar */
+::selection {
+  background: #e5e5e5;
+  color: #0a0a0a;
+}
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #777777;
+  --border: #e5e5e5;
+  --accent: #111111;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-blur: 5px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
 .navbar {
-  background: #fff;
+  max-width: 1200px;
+  margin: auto;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.5em 1em;
-  border-bottom: 1px solid #ccc;
+  align-items: center;
+  height: 60px;
+  padding: 0 2rem;
 }
 
-.logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  line-height: 1.2;
-}
-.byline {
-  font-size: 0.6em;
-  letter-spacing: 2px;
+.navbar a {
+  text-decoration: none;
+  color: #111;
 }
 
-.search {
-  flex: 1;
-  margin: 0 1em;
-  padding: 0.5em;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  max-width: 400px;
+.navbar a:hover {
+  color: #000;
 }
 
-.icons span {
-  font-size: 1.5em;
-  margin-left: 1em;
+/* =========================
+   AUTH FORM (Login / Signup)
+========================= */
+.page-wrapper {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--soft);
 }
 
-/* Form container */
 .form-container {
-  background: #c8c8c8;
-  width: 400px;
-  margin: 10% auto;
-  padding: 2em;
+  width: 380px;
+  background: var(--bg);
   border-radius: 20px;
-  border: 2px solid #333;
+  padding: 2rem;
+  border: 1px solid var(--border);
 }
 
-/* Toggle tabs */
 .toggle-tabs {
   display: flex;
-  justify-content: space-between;
-  border: 1px solid #333;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 1.5em;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
 }
 
 .tab {
   flex: 1;
-  padding: 0.5em;
-  background: transparent;
-  border: none;
-  font-size: 1em;
-  cursor: pointer;
-  transition: 0.2s;
+  padding: 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--muted);
 }
 
 .tab.active {
-  background: #000;
-  color: white;
+  background: var(--fg);
+  color: var(--bg);
 }
 
-/* Form fields */
 .auth-form label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 1rem;
   display: block;
-  margin-top: 0.5em;
-  font-weight: bold;
 }
 
 .auth-form input {
   width: 100%;
-  padding: 0.5em;
-  background: #444;
+  background: transparent;
   border: none;
-  color: #fff;
-  margin-top: 0.3em;
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 0;
+  font-size: 0.85rem;
+  color: var(--fg);
 }
 
-/* Name fields side-by-side */
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--fg);
+}
+
 .name-fields {
   display: flex;
-  gap: 1em;
+  gap: 1rem;
 }
 
-.name-fields div {
-  flex: 1;
-}
-
-/* Submit button */
 .submit-btn {
-  margin-top: 2em;
+  margin-top: 1.6rem;
   width: 100%;
-  padding: 0.7em;
-  border: 2px solid #000;
-  background: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 10px;
+}
+.google-btn {
+  margin-top: 1.6rem;
+  width: 100%;
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.tab, .tab.active {
+  border-radius: 12px;
 }

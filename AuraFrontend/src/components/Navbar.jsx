@@ -1,46 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-
+import { user } from "../AuthContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("token")
-  );
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
-
-  /* ---------------- AUTH STATE ---------------- */
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-    if (token) fetchUser();
-  }, []);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
-      if (token) fetchUser();
-      else setUserName("");
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () =>
-      window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
-  const fetchUser = async () => {
-    try {
-      const res = await api.get("/users/me");
-      setUserName(res.data.first_name || "User");
-    } catch {
-      localStorage.removeItem("token");
-      setIsLoggedIn(false);
-    }
-  };
+  const { user } = useAuth();
 
   /* ---------------- UI ---------------- */
 
@@ -50,17 +17,23 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-0 z-50 w-full border-b bg-white/80 backdrop-blur"
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <nav className="navbar-inner">
+
         {/* Logo */}
-        <span
+        <div
           onClick={() => navigate("/")}
-          className="cursor-pointer text-lg font-semibold tracking-wide"
+          className="navbar-logo cursor-pointer"
         >
-          <img src="AuraFrontend/src/assets/black aura.png"></img>
-        </span>
+          <img
+            src="https://mljcpaxpdmlmagwjqrxg.supabase.co/storage/v1/object/public/essentials/black-aura.png"
+            alt="Aura Logo"
+            className="logo"
+          />
+        </div>
+
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6 text-sm">
+        <div className="desktop-nav">
           <NavLink
             to="/cart"
             className="text-neutral-500 hover:text-black transition"
@@ -83,40 +56,43 @@ export default function Navbar() {
               Log in
             </button>
           )}
-        </div>
 
-        {/* Mobile */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-xl"
-        >
-          ☰
-        </button>
+        </div>
+          {/* Mobile */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="hamburger-btn"
+          >
+
+            ☰
+          </button>
+        
       </nav>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden border-t bg-white px-6 py-4 space-y-4">
-          <NavLink to="/cart" onClick={() => setMenuOpen(false)}>
-            Cart
-          </NavLink>
+        <div className="mobile-menu">
+  <NavLink to="/cart" onClick={() => setMenuOpen(false)}>
+    Cart
+  </NavLink>
 
-          {isLoggedIn ? (
-            <button
-              onClick={() => navigate("/profile")}
-              className="block w-full text-left"
-            >
-              Hi, {userName}
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate("/login")}
-              className="block w-full text-left"
-            >
-              Log in
-            </button>
-          )}
-        </div>
+  {isLoggedIn ? (
+    <button
+      onClick={() => navigate("/profile")}
+      className="mobile-menu-btn"
+    >
+      Hi, {userName}
+    </button>
+  ) : (
+    <button
+      onClick={() => navigate("/login")}
+      className="mobile-menu-btn"
+    >
+      Log in
+    </button>
+  )}
+</div>
+
       )}
     </motion.header>
   );

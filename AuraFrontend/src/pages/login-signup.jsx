@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "../../supabaseclient";
 import "/src/styles/styles.css";
+import "./login-signup.css";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -32,7 +35,7 @@ const AuthForm = () => {
       if (error) throw error;
 
       alert("Login successful!");
-      window.location.href = "/";
+      navigate("/"); // ✅ NO reload
     } else {
       const { data, error } = await supabase.auth.signUp({
         email: form.email,
@@ -47,9 +50,9 @@ const AuthForm = () => {
         alert("Check email for verification");
         return;
       }
-      if (profileError) throw profileError;
 
       alert("Signup successful!");
+      navigate("/login");
     }
   } catch (err) {
     console.error(err);
@@ -69,6 +72,26 @@ const AuthForm = () => {
 
   return (
     <div className="page-wrapper">
+      <motion.header
+        initial={{ y: -16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="fixed top-0 z-50 w-full border-b bg-white/80 backdrop-blur"
+      >
+        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+          {/* Logo */}
+          <span
+            onClick={() => navigate("/")}
+            className="cursor-pointer text-lg font-semibold tracking-wide"
+          >
+            <img
+              src="https://mljcpaxpdmlmagwjqrxg.supabase.co/storage/v1/object/public/essentials/black-aura.png"
+              alt="Aura Logo"
+              className="h-8 object-contain logo"
+            />
+
+          </span>
+        </nav>
+      </motion.header>
       <motion.div
         className="form-container"
         initial={{ opacity: 0, y: 20 }}
@@ -161,6 +184,7 @@ const AuthForm = () => {
 
           <motion.button
             type="submit"
+            onClick={handleSubmit}
             className="submit-btn animate-btn"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -171,7 +195,7 @@ const AuthForm = () => {
 
         {/* Google Sign In */}
         <motion.button
-          className="tab active "
+          className="google-btn"
           onClick={handleGoogleLogin}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}

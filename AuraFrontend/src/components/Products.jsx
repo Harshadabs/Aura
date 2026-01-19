@@ -109,7 +109,7 @@ const Products = () => {
                   className="btn-outline"
                   onClick={() => navigate(`/products/${product.id}`)}
                 >
-                  Shop Now
+                  Order Now
                 </button>
 
                 <button

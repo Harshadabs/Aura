@@ -26,7 +26,15 @@ const AboutUs = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Rooted in friendship and bound by a shared creative vision...
+            Rooted in friendship and bound by a shared creative vision, our journey began when three individuals each with a unique eye for design and a deep love for tradition came together with one goal to create a brand that reimagines ethnic wear for the modern world.
+            <br></br><br></br>
+            We started with a simple belief that tradition doesn’t have to be old fashioned, and timeless style can still be refreshingly new. Drawing from our cultural heritage, personal experiences, and a mutual passion for textiles, we built a brand that reflects both who we are and what we stand for.
+            <br></br><br></br>
+            Every piece we create blends craftsmanship with comfort, elegance with ease. From everyday classics to statement festive ensembles, our designs honor traditional silhouettes while embracing contemporary detail and versatility.
+            <br></br><br></br>
+            More than just a clothing label, our brand is a reflection of friendship, authenticity, and artistry. Each collection is thoughtfully designed keeping in mind the woman who values heritage but lives in the present.
+            <br></br><br></br>
+            This is our story. Three friends. One dream. A shared love for ethnic fashion. And a commitment to creating clothing that celebrates every woman’s individuality and roots.
           </motion.h1>
 
           <motion.img
